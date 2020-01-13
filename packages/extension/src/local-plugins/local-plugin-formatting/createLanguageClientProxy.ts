@@ -6,7 +6,11 @@ import {
   TransportKind
 } from 'vscode-languageclient'
 
-export interface LanguageClientProxy {}
+export interface LanguageClientProxy {
+  readonly restart: (
+    languageClientOptions: LanguageClientOptions
+  ) => Promise<void>
+}
 
 export const createLanguageClientProxy: (
   context: vscode.ExtensionContext,
@@ -57,17 +61,28 @@ export const createLanguageClientProxy: (
       outputChannel.dispose()
     }
   }
-
-  const languageClient = new LanguageClient(
-    id,
-    name,
-    serverOptions,
-    clientOptions
-  )
-
-  languageClient.registerProposedFeatures()
-  context.subscriptions.push(languageClient.start())
-  await languageClient.onReady()
-  const languageClientProxy: LanguageClientProxy = {}
+  let languageClient: LanguageClient
+  const setLanguageClient = async (clientOptions: LanguageClientOptions) => {
+    languageClient = new LanguageClient(id, name, serverOptions, clientOptions)
+    languageClient.registerProposedFeatures()
+    languageClient.start()
+    await languageClient.onReady()
+  }
+  context.subscriptions.push({
+    dispose() {
+      if (languageClient.needsStop()) {
+        languageClient.stop()
+      }
+    }
+  })
+  setLanguageClient(clientOptions)
+  const languageClientProxy: LanguageClientProxy = {
+    restart: async clientOptions => {
+      if (languageClient.needsStop()) {
+        languageClient.stop()
+      }
+      await setLanguageClient(clientOptions)
+    }
+  }
   return languageClientProxy
 }

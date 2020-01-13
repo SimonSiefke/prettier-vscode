@@ -10,7 +10,9 @@ import { documents } from './documents'
 
 const NULL_TEXT_EDIT: TextEdit[] = []
 
-documents.onDidOpen(event => preloadFormatter(event.document.languageId))
+documents.onDidOpen(event =>
+  preloadFormatter(event.document.uri, event.document.languageId)
+)
 
 const minimizeEdit: (
   text: string,

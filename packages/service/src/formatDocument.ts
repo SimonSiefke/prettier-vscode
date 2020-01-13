@@ -1,5 +1,5 @@
-import {format, Options} from 'prettier'
-import {Format} from './plugins/pluginApi'
+import {format, getFileInfo, Options, resolveConfig} from 'prettier'
+import {Format as Formatter} from './plugins/pluginApi'
 
 const DEFAULT_OPTIONS: Options = {
   htmlWhitespaceSensitivity: 'ignore',
@@ -9,6 +9,28 @@ const DEFAULT_OPTIONS: Options = {
   singleQuote: true
 }
 
+const getOptionsCache: {[key: string]: Options} = Object.create(null)
+const getOptions: (filePath: string) => Promise<Options> = async filePath => {
+  if (!(filePath in getOptionsCache)) {
+    let options = (await resolveConfig(filePath)) || DEFAULT_OPTIONS
+    options = {...options, filepath: filePath}
+    getOptionsCache[filePath] = options
+  }
+  return getOptionsCache[filePath]
+}
+
+const getIsIgnoredCache: {[key: string]: boolean} = Object.create(null)
+const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
+  if (!(filePath in getIsIgnoredCache)) {
+    const fileInfo = await getFileInfo(filePath)
+    getIsIgnoredCache[filePath] = fileInfo.ignored
+  }
+  return getIsIgnoredCache[filePath]
+}
+
+/**
+ * Used for preloading formatters
+ */
 const EXTENSION_MAP: {[key: string]: string} = {
   csharp: 'cs',
   css: 'css',
@@ -38,7 +60,7 @@ const EXTENSION_MAP: {[key: string]: string} = {
   yaml: 'yml'
 }
 
-const FORMATTING_MAP: {[key: string]: () => Promise<Format>} = {
+const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
   async csharp() {
     const {formatCsharp} = await import('./plugins/csharp/csharp')
     return formatCsharp
@@ -149,34 +171,62 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Format>} = {
   }
 }
 
-export const preloadFormatter: (languageId: string) => Promise<void> = (() => {
-  const preloadedMap: Set<string> = new Set()
-  return async (languageId: string) => {
-    if (preloadedMap.has(languageId)) {
-      return
-    }
-    if (!FORMATTING_MAP[languageId]) {
-      return
-    }
-    preloadedMap.add(languageId)
+const getFormatterCache: {[key: string]: Formatter | undefined} = Object.create(
+  null
+)
+const getFormatter: (
+  languageId: string
+) => Promise<Formatter | undefined> = async languageId => {
+  if (!(languageId in getFormatterCache)) {
     const formatter = await FORMATTING_MAP[languageId]()
-    formatter(format)('', {
-      filepath: `index.${EXTENSION_MAP[languageId]}`
-    })
+    getFormatterCache[languageId] = formatter
   }
-})()
+  return getFormatterCache[languageId]
+}
+
+const preloadFormatterCache: Set<string> = new Set()
+export const preloadFormatter: (
+  filePath: string,
+  languageId: string
+) => Promise<void> = async (filePath: string, languageId: string) => {
+  if (preloadFormatterCache.has(filePath)) {
+    return
+  }
+  preloadFormatterCache.add(filePath)
+  const formatter = await getFormatter(languageId)
+  const isIgnored = await getIsIgnored(filePath)
+  const options = await getOptions(filePath)
+  if (!formatter) {
+    return
+  }
+  if (isIgnored) {
+    return
+  }
+  formatter(format)('', options)
+}
+
+const NULL_FORMATTING_RESULT = undefined
 
 export const formatDocument: (
   text: string,
-  documentUri: string,
+  filePath: string,
   languageId: string
-) => Promise<string | undefined> = async (text, documentUri, languageId) => {
+) => Promise<string | undefined> = async (text, filePath, languageId) => {
   if (!FORMATTING_MAP[languageId]) {
-    return undefined
+    return NULL_FORMATTING_RESULT
   }
-  const formatLanguage = await FORMATTING_MAP[languageId]()
-  return formatLanguage(format)(text, {
-    ...DEFAULT_OPTIONS,
-    filepath: documentUri
-  })
+  const isIgnoredPromise = getIsIgnored(filePath)
+  const formatLanguagePromise = FORMATTING_MAP[languageId]()
+  const optionsPromise = getOptions(filePath)
+  // const start = new Date().getTime()
+  const [isIgnored, formatLanguage, options] = await Promise.all([
+    isIgnoredPromise,
+    formatLanguagePromise,
+    optionsPromise
+  ])
+  // console.log('took' + (new Date().getTime() - start))
+  if (isIgnored) {
+    return NULL_FORMATTING_RESULT
+  }
+  return formatLanguage(format)(text, options)
 }

@@ -12,6 +12,5 @@ const LOCAL_PLUGINS: LocalPlugin[] = [
 export const activate: (
   context: vscode.ExtensionContext
 ) => Promise<void> = async context => {
-  console.log('activate')
   await Promise.all([LOCAL_PLUGINS.map(localPlugin => localPlugin(context))])
 }

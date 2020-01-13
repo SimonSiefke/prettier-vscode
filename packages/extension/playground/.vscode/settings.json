@@ -1,7 +1,7 @@
 {
+  "[html]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
   "editor.defaultFormatter": "SimonSiefke.prettier-vscode",
-  "prettier.enabledLanguages": [
-    "css",
-    "html"
-  ]
+  "html.format.enable": false
 }
