@@ -99,6 +99,9 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
     )
     return formatJavascriptReact
   },
+  async jsx() {
+    return this.javascriptreact()
+  },
   async json() {
     const {formatJson} = await import('./plugins/json/json')
     return formatJson
@@ -146,6 +149,9 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
   async typescript() {
     const {formatTypescript} = await import('./plugins/typescript/typescript')
     return formatTypescript
+  },
+  async tsx() {
+    return this.typescriptreact()
   },
   async typescriptreact() {
     const {formatTypescriptreact} = await import(
