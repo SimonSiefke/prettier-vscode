@@ -1,0 +1,7 @@
+{
+  "editor.defaultFormatter": "SimonSiefke.prettier-vscode",
+  "prettier.enabledLanguages": [
+    "css",
+    "html"
+  ]
+}

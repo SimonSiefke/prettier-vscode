@@ -1,0 +1,202 @@
+{
+  "name": "prettier-vscode",
+  "displayName": "Prettier - Code formatter",
+  "description": "Code formatter using prettier",
+  "publisher": "SimonSiefke",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.41.1"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "activationEvents": [
+    "onLanguage:csharp",
+    "onLanguage:css",
+    "onLanguage:elm",
+    "onLanguage:flow",
+    "onLanguage:graphql",
+    "onLanguage:html",
+    "onLanguage:java",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:json",
+    "onLanguage:jsonc",
+    "onLanguage:less",
+    "onLanguage:markdown",
+    "onLanguage:mdx",
+    "onLanguage:php",
+    "onLanguage:postcss",
+    "onLanguage:ruby",
+    "onLanguage:scss",
+    "onLanguage:solidity",
+    "onLanguage:svelte",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:vue",
+    "onLanguage:xml",
+    "onLanguage:yaml"
+  ],
+  "icon": "icon.png",
+  "main": "./dist/extensionMain.js",
+  "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": ".prettierrc",
+        "url": "http://json.schemastore.org/prettierrc"
+      },
+      {
+        "fileMatch": ".prettierrc.json",
+        "url": "http://json.schemastore.org/prettierrc"
+      },
+      {
+        "fileMatch": "package.json",
+        "url": "./package-json-schema.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "json",
+        "filenames": [
+          ".prettierrc"
+        ]
+      },
+      {
+        "id": "ignore",
+        "filenames": [
+          ".prettierignore"
+        ]
+      },
+      {
+        "id": "vue",
+        "extensions": [
+          ".vue"
+        ]
+      },
+      {
+        "id": "elm",
+        "extensions": [
+          ".elm"
+        ]
+      },
+      {
+        "id": "graphql",
+        "extensions": [
+          ".graphql"
+        ]
+      },
+      {
+        "id": "java",
+        "extensions": [
+          ".java"
+        ]
+      },
+      {
+        "id": "mdx",
+        "extensions": [
+          ".mdx"
+        ]
+      },
+      {
+        "id": "ruby",
+        "extensions": [
+          ".rb"
+        ]
+      },
+      {
+        "id": "solidity",
+        "extensions": [
+          ".sol"
+        ]
+      },
+      {
+        "id": "svelte",
+        "extensions": [
+          ".svelte"
+        ]
+      },
+      {
+        "id": "yaml",
+        "extensions": [
+          ".yml"
+        ]
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Enabled language ids",
+      "properties": {
+        "prettier.enabledLanguages": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "csharp",
+              "css",
+              "elm",
+              "flow",
+              "graphql",
+              "html",
+              "java",
+              "javascript",
+              "javascriptreact",
+              "json",
+              "jsonc",
+              "less",
+              "markdown",
+              "mdx",
+              "php",
+              "postcss",
+              "ruby",
+              "scss",
+              "solidity",
+              "svelte",
+              "typescript",
+              "typescriptreact",
+              "vue",
+              "xml",
+              "yaml"
+            ]
+          },
+          "scope": "resource",
+          "default": [
+            "csharp",
+            "css",
+            "elm",
+            "flow",
+            "graphql",
+            "html",
+            "java",
+            "javascript",
+            "javascriptreact",
+            "json",
+            "jsonc",
+            "less",
+            "markdown",
+            "mdx",
+            "php",
+            "postcss",
+            "ruby",
+            "scss",
+            "solidity",
+            "svelte",
+            "typescript",
+            "typescriptreact",
+            "vue",
+            "xml",
+            "yaml"
+          ]
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.41.0",
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.16",
+    "vscode-languageclient": "^6.0.0-next.9"
+  }
+}
