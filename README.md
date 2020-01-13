@@ -22,6 +22,7 @@
 - Svelte
 - TypeScript
 - TSX
+- Twig
 - Vue
 - XML
 - YAML

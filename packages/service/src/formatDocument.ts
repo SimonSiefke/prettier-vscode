@@ -32,6 +32,7 @@ const EXTENSION_MAP: {[key: string]: string} = {
   svelte: 'svelte',
   typescript: 'ts',
   typescriptreact: 'tsx',
+  twig: 'twig',
   vue: 'vue',
   xml: 'xml',
   yaml: 'yml'
@@ -129,6 +130,10 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Format>} = {
       './plugins/typescriptreact/typescriptreact'
     )
     return formatTypescriptreact
+  },
+  async twig() {
+    const {formatTwig} = await import('./plugins/twig/twig')
+    return formatTwig
   },
   async vue() {
     const {formatVue} = await import('./plugins/vue/vue')

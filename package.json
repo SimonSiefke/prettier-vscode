@@ -3,6 +3,7 @@
     "postinstall": "lerna bootstrap && tsc -b",
     "dev": "tsc -b -w",
     "e2e": "cd packages/extension-test && npm run e2e",
+    "test": "cd packages/service && npm run test",
     "clean": "rimraf dist",
     "bundle:client": "webpack --mode production --config ./webpack/client.webpack.config.js",
     "bundle:server": "webpack --mode production --config ./webpack/server.webpack.config.js",

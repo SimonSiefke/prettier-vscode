@@ -12,6 +12,39 @@ const NULL_TEXT_EDIT: TextEdit[] = []
 
 documents.onDidOpen(event => preloadFormatter(event.document.languageId))
 
+const minimizeEdit: (
+  text: string,
+  newText: string
+) => { startOffset: number; endOffset: number; insertedText: string } = (
+  text,
+  newText
+) => {
+  const length = Math.min(text.length, newText.length)
+  let startSame = 0
+  while (startSame < length) {
+    if (text[startSame] !== newText[startSame]) {
+      break
+    }
+    startSame++
+  }
+  let endSame = 1
+  while (endSame < length - startSame) {
+    if (text[text.length - endSame] !== newText[newText.length - endSame]) {
+      break
+    }
+    endSame++
+  }
+  endSame--
+  const startOffset = startSame
+  const endOffset = text.length - endSame
+  const insertedText = newText.slice(startSame, newText.length - endSame)
+  return {
+    startOffset,
+    endOffset,
+    insertedText
+  }
+}
+
 export const documentFormatting: ServerRequestHandler<
   DocumentFormattingParams,
   TextEdit[],
@@ -26,9 +59,13 @@ export const documentFormatting: ServerRequestHandler<
   if (!newText) {
     return NULL_TEXT_EDIT
   }
+  const { startOffset, endOffset, insertedText } = minimizeEdit(text, newText)
   const textEdit: TextEdit = TextEdit.replace(
-    Range.create(Position.create(0, 0), document.positionAt(text.length)),
-    newText
+    Range.create(
+      document.positionAt(startOffset),
+      document.positionAt(endOffset)
+    ),
+    insertedText
   )
   return [textEdit]
 }

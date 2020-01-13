@@ -36,6 +36,10 @@ declare module 'prettier-plugin-csharp' {
   export as namespace PrettierPlugin
 }
 
+declare module 'prettier-plugin-twig-melody' {
+  export as namespace PrettierPlugin
+}
+
 declare module '@prettier/plugin-xml' {
   export as namespace PrettierPlugin
 }

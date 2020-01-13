@@ -33,6 +33,7 @@
     "onLanguage:svelte",
     "onLanguage:typescript",
     "onLanguage:typescriptreact",
+    "onLanguage:twig",
     "onLanguage:vue",
     "onLanguage:xml",
     "onLanguage:yaml"
@@ -116,6 +117,12 @@
         ]
       },
       {
+        "id": "twig",
+        "extensions": [
+          ".twig"
+        ]
+      },
+      {
         "id": "yaml",
         "extensions": [
           ".yml"
@@ -154,6 +161,7 @@
               "svelte",
               "typescript",
               "typescriptreact",
+              "twig",
               "vue",
               "xml",
               "yaml"
@@ -183,6 +191,7 @@
             "svelte",
             "typescript",
             "typescriptreact",
+            "twig",
             "vue",
             "xml",
             "yaml"

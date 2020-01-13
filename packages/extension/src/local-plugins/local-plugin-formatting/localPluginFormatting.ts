@@ -26,6 +26,7 @@ const DEFAULT_ENABLED_LANGUAGE_IDS = [
   'svelte',
   'typescript',
   'typescriptreact',
+  'twig',
   'vue',
   'xml',
   'yaml'
