@@ -40,6 +40,10 @@ declare module 'prettier-plugin-twig-melody' {
   export as namespace PrettierPlugin
 }
 
+declare module 'prettier-plugin-slice' {
+  export as namespace PrettierPlugin
+}
+
 declare module '@prettier/plugin-xml' {
   export as namespace PrettierPlugin
 }

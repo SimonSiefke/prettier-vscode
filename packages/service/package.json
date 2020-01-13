@@ -27,6 +27,7 @@
     "prettier-plugin-elm": "^0.5.0",
     "prettier-plugin-java": "^0.6.0",
     "prettier-plugin-kotlin": "^2.0.0",
+    "prettier-plugin-slice": "^0.1.1",
     "prettier-plugin-solidity": "^1.0.0-alpha.36",
     "prettier-plugin-svelte": "^0.7.0",
     "prettier-plugin-twig-melody": "^0.2.1",
