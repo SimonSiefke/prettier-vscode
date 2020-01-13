@@ -28,38 +28,6 @@ const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
   return getIsIgnoredCache[filePath]
 }
 
-/**
- * Used for preloading formatters
- */
-const EXTENSION_MAP: {[key: string]: string} = {
-  csharp: 'cs',
-  css: 'css',
-  elm: 'elm',
-  flow: 'js',
-  graphql: 'gql',
-  html: 'html',
-  java: 'java',
-  javascript: 'js',
-  javascriptreact: 'jsx',
-  json: 'json',
-  jsonc: 'json',
-  less: 'less',
-  markdown: 'md',
-  mdx: 'mdx',
-  php: 'php',
-  postcss: 'css',
-  ruby: 'rb',
-  scss: 'scss',
-  solidity: 'sol',
-  svelte: 'svelte',
-  typescript: 'ts',
-  typescriptreact: 'tsx',
-  twig: 'twig',
-  vue: 'vue',
-  xml: 'xml',
-  yaml: 'yml'
-}
-
 const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
   async csharp() {
     const {formatCsharp} = await import('./plugins/csharp/csharp')
@@ -98,9 +66,6 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
       './plugins/javascriptreact/javascriptreact'
     )
     return formatJavascriptReact
-  },
-  async jsx() {
-    return this.javascriptreact()
   },
   async json() {
     const {formatJson} = await import('./plugins/json/json')
@@ -149,9 +114,6 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
   async typescript() {
     const {formatTypescript} = await import('./plugins/typescript/typescript')
     return formatTypescript
-  },
-  async tsx() {
-    return this.typescriptreact()
   },
   async typescriptreact() {
     const {formatTypescriptreact} = await import(
