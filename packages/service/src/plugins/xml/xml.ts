@@ -1,5 +1,5 @@
 import * as xml from '@prettier/plugin-xml'
-import {Format} from '../pluginApi'
+import {Formatter} from '../pluginApi'
 
-export const formatXml: Format = format => (text, options) =>
+export const formatXml: Formatter = format => (text, options) =>
   format(text, {...options, plugins: [xml]})

@@ -1,6 +1,6 @@
 import { codeFrameColumns } from '@babel/code-frame'
 import * as fs from 'fs'
-import 'source-map-support/register'
+import { install } from 'source-map-support'
 import { Connection } from 'vscode-languageserver'
 
 export const handleError: (error: Error) => void = error => {
@@ -18,8 +18,8 @@ export const handleError: (error: Error) => void = error => {
       const location = {
         start: {
           line: parseInt(line),
-          column: parseInt(column)
-        }
+          column: parseInt(column),
+        },
       }
 
       const result = codeFrameColumns(rawLines, location)
@@ -77,6 +77,7 @@ const useConnectionConsole: (
 export const enableBetterErrorHandlingAndLogging: (
   connection: Connection
 ) => void = connection => {
+  install()
   const connectionConsole = useConnectionConsole(connection, { trace: false })
   console.log = connectionConsole('log')
   console.info = connectionConsole('info')

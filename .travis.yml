@@ -1,0 +1,30 @@
+language: node_js
+
+node_js: lts/*
+
+if: tag IS blank
+
+install:
+  - |
+    npm ci
+  - |
+    if [ $TRAVIS_OS_NAME == "linux" ]; then
+      export DISPLAY=':99.0'
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+    fi
+
+stages:
+  - test
+  - name: release
+    if: branch = master AND type = push AND fork = false
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - npm run e2e
+        - npm test
+        - npm run package
+    - stage: release
+      script:
+        - npm run publish

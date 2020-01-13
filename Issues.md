@@ -6,3 +6,15 @@ ask user if he/she
 
 and dont ask if it is already enabled or if the user has already been asked
  -->
+
+<!-- TODO bug
+unicode regex and cjk regex are unnecessarily bundled inside server chunk
+
+
+ -->
+
+
+<!-- TODO maybe don't include prettier in bundle and after install run npm i -g prettier
+then use the global prettier version for formatting or the local version of prettier if there is one
+
+ -->

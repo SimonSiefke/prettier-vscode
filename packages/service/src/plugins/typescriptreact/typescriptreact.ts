@@ -1,4 +1,4 @@
-import {Format} from '../pluginApi'
+import {Formatter} from '../pluginApi'
 
-export const formatTypescriptreact: Format = format => (text, options) =>
+export const formatTypescriptreact: Formatter = format => (text, options) =>
   format(text, options)

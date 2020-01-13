@@ -1,12 +1,12 @@
 import {format, getFileInfo, Options, resolveConfig} from 'prettier'
-import {Format as Formatter} from './plugins/pluginApi'
+import {Formatter} from './plugins/pluginApi'
 
 const DEFAULT_OPTIONS: Options = {
   htmlWhitespaceSensitivity: 'ignore',
   arrowParens: 'avoid',
   semi: false,
   trailingComma: 'all',
-  singleQuote: true
+  singleQuote: true,
 }
 
 const getOptionsCache: {[key: string]: Options} = Object.create(null)
@@ -45,7 +45,7 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
     const {formatFlow} = await import('./plugins/flow/flow')
     return formatFlow
   },
-  async graphlql() {
+  async graphql() {
     const {formatGraphql} = await import('./plugins/graphql/graphql')
     return formatGraphql
   },
@@ -136,7 +136,7 @@ const FORMATTING_MAP: {[key: string]: () => Promise<Formatter>} = {
   async yaml() {
     const {formatYaml} = await import('./plugins/yaml/yaml')
     return formatYaml
-  }
+  },
 }
 
 const getFormatterCache: {[key: string]: Formatter | undefined} = Object.create(
@@ -146,8 +146,11 @@ const getFormatter: (
   languageId: string
 ) => Promise<Formatter | undefined> = async languageId => {
   if (!(languageId in getFormatterCache)) {
-    const formatter = await FORMATTING_MAP[languageId]()
-    getFormatterCache[languageId] = formatter
+    if (languageId in FORMATTING_MAP) {
+      getFormatterCache[languageId] = await FORMATTING_MAP[languageId]()
+    } else {
+      getFormatterCache[languageId] = undefined
+    }
   }
   return getFormatterCache[languageId]
 }
@@ -164,10 +167,7 @@ export const preloadFormatter: (
   const formatter = await getFormatter(languageId)
   const isIgnored = await getIsIgnored(filePath)
   const options = await getOptions(filePath)
-  if (!formatter) {
-    return
-  }
-  if (isIgnored) {
+  if (!formatter || isIgnored) {
     return
   }
   formatter(format)('', options)
@@ -180,20 +180,15 @@ export const formatDocument: (
   filePath: string,
   languageId: string
 ) => Promise<string | undefined> = async (text, filePath, languageId) => {
-  if (!FORMATTING_MAP[languageId]) {
-    return NULL_FORMATTING_RESULT
-  }
   const isIgnoredPromise = getIsIgnored(filePath)
-  const formatLanguagePromise = FORMATTING_MAP[languageId]()
+  const formatLanguagePromise = getFormatter(languageId)
   const optionsPromise = getOptions(filePath)
-  // const start = new Date().getTime()
   const [isIgnored, formatLanguage, options] = await Promise.all([
     isIgnoredPromise,
     formatLanguagePromise,
-    optionsPromise
+    optionsPromise,
   ])
-  // console.log('took' + (new Date().getTime() - start))
-  if (isIgnored) {
+  if (!formatLanguage || isIgnored) {
     return NULL_FORMATTING_RESULT
   }
   return formatLanguage(format)(text, options)

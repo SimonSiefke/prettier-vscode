@@ -1,5 +1,5 @@
 import * as twig from 'prettier-plugin-twig-melody'
-import {Format} from '../pluginApi'
+import {Formatter} from '../pluginApi'
 
-export const formatTwig: Format = format => (text, options) =>
+export const formatTwig: Formatter = format => (text, options) =>
   format(text, {...options, plugins: [twig]})

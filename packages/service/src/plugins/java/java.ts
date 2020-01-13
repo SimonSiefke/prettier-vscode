@@ -1,5 +1,5 @@
 import * as java from 'prettier-plugin-java'
-import { Format } from '../pluginApi'
+import { Formatter } from '../pluginApi'
 
-export const formatJava: Format = format => (text, options) =>
+export const formatJava: Formatter = format => (text, options) =>
   format(text, { ...options, plugins: [java] })

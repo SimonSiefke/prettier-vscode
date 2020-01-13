@@ -1,10 +1,9 @@
 import { formatDocument, preloadFormatter } from 'service'
 import {
   DocumentFormattingParams,
-  Position,
   Range,
   ServerRequestHandler,
-  TextEdit
+  TextEdit,
 } from 'vscode-languageserver'
 import { documents } from './documents'
 
@@ -43,7 +42,7 @@ const minimizeEdit: (
   return {
     startOffset,
     endOffset,
-    insertedText
+    insertedText,
   }
 }
 

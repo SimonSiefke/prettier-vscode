@@ -1,5 +1,5 @@
 import * as elm from 'prettier-plugin-elm'
-import { Format } from '../pluginApi'
+import { Formatter } from '../pluginApi'
 
-export const formatElm: Format = format => (text, options) =>
+export const formatElm: Formatter = format => (text, options) =>
   format(text, { ...options, plugins: [elm] })

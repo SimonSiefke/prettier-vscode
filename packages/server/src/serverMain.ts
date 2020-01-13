@@ -1,13 +1,13 @@
 import {
   createConnection,
   TextDocumentSyncKind,
-  ServerRequestHandler
+  ServerRequestHandler,
 } from 'vscode-languageserver'
 import { documentFormatting } from './documentFormatting'
 import { documents } from './documents'
 import {
   enableBetterErrorHandlingAndLogging,
-  handleError
+  handleError,
 } from './errorHandlingAndLogging'
 
 const connection = createConnection()
@@ -17,8 +17,8 @@ enableBetterErrorHandlingAndLogging(connection)
 connection.onInitialize(() => ({
   capabilities: {
     textDocumentSync: TextDocumentSyncKind.Incremental,
-    documentFormattingProvider: true
-  }
+    documentFormattingProvider: true,
+  },
 }))
 
 const handleRequest: <P, R, E>(

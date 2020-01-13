@@ -1,4 +1,4 @@
-import {Format} from '../pluginApi'
+import {Formatter} from '../pluginApi'
 
-export const formatHtml: Format = format => (text, options) =>
+export const formatHtml: Formatter = format => (text, options) =>
   format(text, options)

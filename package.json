@@ -4,22 +4,23 @@
     "dev": "tsc -b -w",
     "e2e": "cd packages/extension-test && npm run e2e",
     "test": "cd packages/service && npm run test",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tmp",
     "bundle:client": "webpack --mode production --config ./webpack/client.webpack.config.js",
     "bundle:server": "webpack --mode production --config ./webpack/server.webpack.config.js",
-    "package": "npm run clean && npm run bundle:client && npm run bundle:server && node scripts/package.js && cd dist && vsce package",
-    "prettier": "prettier --write \"packages/*/src/**/*.ts\""
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
+    "package": "npm run clean && npm run bundle:client && npm run bundle:server && node scripts/package.js && npm run bundlesize",
+    "publish": "npm run package && cd dist && npx semantic-release",
+    "prettier": "prettier --write \"packages/*/src/**/*.ts\"",
+    "bundlesize": "bundlesize"
   },
   "devDependencies": {
+    "bundlesize": "^0.18.0",
     "fs-extra": "^8.1.0",
     "lerna": "^3.20.2",
     "merge-options": "^2.0.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
+    "semantic-release": "^16.0.1",
+    "semantic-release-vsce": "^2.2.8",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^5.0.0-beta.11",
@@ -28,5 +29,32 @@
   },
   "renovate": {
     "extends": "bitworkers"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/packages/extension/dist/extensionMain.js",
+      "maxSize": "5.0 kB",
+      "compression": "none"
+    },
+    {
+      "path": "./dist/packages/extension/dist/vscode-dependencies.js",
+      "maxSize": "180 kB",
+      "compression": "none"
+    },
+    {
+      "path": "./dist/packages/extension/dist/dependencies.js",
+      "maxSize": "40 kB",
+      "compression": "none"
+    },
+    {
+      "path": "./dist/packages/server/dist/serverMain.js",
+      "maxSize": "10 kB",
+      "compression": "none"
+    }
+  ],
+  "prettier": {
+    "semi": false,
+    "trailingComma": "es5",
+    "singleQuote": true
   }
 }

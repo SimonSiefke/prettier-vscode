@@ -46,6 +46,14 @@
     "onLanguage:xml",
     "onLanguage:yaml"
   ],
+  "homepage": "https://github.com/SimonSiefke/prettier-vscode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SimonSiefke/prettier-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SimonSiefke/prettier-vscode/issues"
+  },
   "icon": "icon.png",
   "main": "./dist/extensionMain.js",
   "contributes": {
@@ -91,7 +99,7 @@
       {
         "id": "graphql",
         "extensions": [
-          ".graphql"
+          ".gql"
         ]
       },
       {
@@ -214,6 +222,6 @@
   },
   "dependencies": {
     "source-map-support": "^0.5.16",
-    "vscode-languageclient": "^6.0.0-next.9"
+    "vscode-languageclient": "^6.0.0-next.10"
   }
 }

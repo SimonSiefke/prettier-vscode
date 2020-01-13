@@ -1,5 +1,5 @@
 import * as solidity from 'prettier-plugin-solidity'
-import {Format} from '../pluginApi'
+import {Formatter} from '../pluginApi'
 
-export const formatSolidity: Format = format => (text, options) =>
+export const formatSolidity: Formatter = format => (text, options) =>
   format(text, {...options, plugins: [solidity]})
