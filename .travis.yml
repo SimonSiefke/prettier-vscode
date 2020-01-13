@@ -6,7 +6,7 @@ if: tag IS blank
 
 install:
   - |
-    npm ci
+    npm i
   - |
     if [ $TRAVIS_OS_NAME == "linux" ]; then
       export DISPLAY=':99.0'

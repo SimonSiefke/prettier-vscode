@@ -3,7 +3,11 @@
   "displayName": "Prettier - Code formatter",
   "description": "Code formatter using prettier",
   "publisher": "SimonSiefke",
-  "version": "1.0.0",
+  "version": "1.0.0-dev",
+  "galleryBanner": {
+    "color": "#ffe04b",
+    "theme": "light"
+  },
   "engines": {
     "vscode": "^1.41.1"
   },
