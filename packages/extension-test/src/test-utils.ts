@@ -28,7 +28,7 @@ export interface TestCase {
   skip?: boolean
   timeout?: 'never' | number
   debug?: boolean
-  waitForAutoComplete?: 1
+  waitForAutoComplete?: number
   selection?: [number, number]
   afterTypeCommands?: string[]
   undoStops?: boolean
@@ -42,8 +42,8 @@ export async function createTestFile(
     vscode.workspace.workspaceFolders![0].uri.fsPath,
     fileName
   )
-  fs.writeFileSync(filePath, content)
   const uri = vscode.Uri.file(filePath)
+  await vscode.workspace.fs.writeFile(uri, Buffer.from(content))
   await vscode.window.showTextDocument(uri)
 }
 
@@ -206,8 +206,8 @@ export async function run(
 
     const resolvedAfterCommands = testCase.afterTypeCommands || afterCommands
     for (const afterCommand of resolvedAfterCommands) {
-      if (afterCommand === 'wait250') {
-        await new Promise(r => setTimeout(r, 250))
+      if (afterCommand === 'wait100') {
+        await new Promise(r => setTimeout(r, 100))
         continue
       }
       await vscode.commands.executeCommand(afterCommand)

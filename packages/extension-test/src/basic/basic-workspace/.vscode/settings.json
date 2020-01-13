@@ -1,3 +1,78 @@
 {
-  "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  "editor.defaultFormatter": "SimonSiefke.prettier-vscode",
+  "[csharp]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[elm]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[flow]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[graphql]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[java]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[postcss]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[solidity]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[twig]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  }
 }
