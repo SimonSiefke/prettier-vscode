@@ -4,6 +4,18 @@
 
 ![demo](./demo_images/demo.gif)
 
+## Recommended Settings
+
+For best editing experience, the following settings are recommended:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+}
+```
+
+<br>
 <br>
 
 ## Differences to the official prettier extension
@@ -21,12 +33,14 @@
 
 <br>
 
+<!--
 ## Settings
 
 | Property                    | Default                                                                                                                                                                                                                                                          |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | prettier.enabledLanguageIds | `["csharp", "css", "elm", "flow", "graphql", "html", "java","javascript", "javascriptreact", "json", "jsonc", "less", "markdown", "mdx", "php", "postcss", "ruby", "scss", "solidity", "svelte", "typescript", "typescriptreact", "twig", "vue", "xml", "yaml"]` |
 
+-->
 <!--
 ## Supported Languages
 
