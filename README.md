@@ -20,9 +20,9 @@
 
 ## Settings
 
-| Property                    | Description          | Default                                                                                                                                                                                                                                                          |
-| --------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| prettier.enabledLanguageIds | Enabled language ids | `["csharp", "css", "elm", "flow", "graphql", "html", "java","javascript", "javascriptreact", "json", "jsonc", "less", "markdown", "mdx", "php", "postcss", "ruby", "scss", "solidity", "svelte", "typescript", "typescriptreact", "twig", "vue", "xml", "yaml"]` |
+| Property                    | Default                                                                                                                                                                                                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| prettier.enabledLanguageIds | `["csharp", "css", "elm", "flow", "graphql", "html", "java","javascript", "javascriptreact", "json", "jsonc", "less", "markdown", "mdx", "php", "postcss", "ruby", "scss", "solidity", "svelte", "typescript", "typescriptreact", "twig", "vue", "xml", "yaml"]` |
 
 <!--
 ## Supported Languages
