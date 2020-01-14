@@ -19,3 +19,14 @@ then use the global prettier version for formatting or the local version of pret
  -->
 
  <!-- TODO dont throw error on invalid json code -->
+
+<!-- TODO bug
+why are there no spaces around braces
+
+import {a} from 'a'
+
+instead of
+
+import { a } from 'a'
+
+ -->
