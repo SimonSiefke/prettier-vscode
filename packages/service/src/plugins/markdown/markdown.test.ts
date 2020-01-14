@@ -1,10 +1,10 @@
-import {format} from 'prettier'
-import {formatMarkdown} from './markdown'
+import { format } from 'prettier'
+import { formatMarkdown } from './markdown'
 
 test('format markdown', () => {
   expect(
     formatMarkdown(format)(` # hello world`, {
-      filepath: 'index.md'
+      filepath: 'index.md',
     })
   ).toBe(`# hello world
 `)

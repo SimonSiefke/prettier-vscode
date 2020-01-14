@@ -411,4 +411,17 @@ contract helloWorld {
       afterCommands,
     })
   })
+
+  test('invalid files', async () => {
+    await createTestFile('index2.json')
+    const testCases: TestCase[] = [
+      {
+        input: '{;;;}',
+        expect: '{;;;}',
+      },
+    ]
+    await run(testCases, {
+      afterCommands,
+    })
+  })
 })

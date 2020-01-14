@@ -1,4 +1,4 @@
-import {Options} from 'prettier'
+import { Options } from 'prettier'
 
 type Prettier = typeof import('prettier')
 

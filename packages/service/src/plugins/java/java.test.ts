@@ -14,7 +14,7 @@ class HelloWorld {
 
 `,
       {
-        filepath: 'index.java'
+        filepath: 'index.java',
       }
     )
   ).toBe(`class HelloWorld {

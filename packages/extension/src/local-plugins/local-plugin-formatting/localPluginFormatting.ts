@@ -29,7 +29,7 @@ const DEFAULT_ENABLED_LANGUAGE_IDS = [
   'twig',
   'vue',
   'xml',
-  'yaml'
+  'yaml',
 ]
 
 const getDocumentSelector: () => DocumentSelector = () => {
@@ -41,7 +41,7 @@ const getDocumentSelector: () => DocumentSelector = () => {
     languageId =>
       schemes.map(scheme => ({
         scheme,
-        language: languageId
+        language: languageId,
       }))
   )
   return documentSelector
@@ -49,7 +49,7 @@ const getDocumentSelector: () => DocumentSelector = () => {
 
 const getLanguageClientOptions: () => LanguageClientOptions = () => {
   const languageClientOptions: LanguageClientOptions = {
-    documentSelector: getDocumentSelector()
+    documentSelector: getDocumentSelector(),
     // synchronize
   }
   return languageClientOptions
@@ -63,7 +63,7 @@ const PRETTIER_CONFIG_FILES = [
   '.prettierrc.js',
   'package.json',
   'prettier.config.js',
-  '.editorconfig'
+  '.editorconfig',
 ]
 
 export const localPluginFormatting: LocalPlugin = async context => {

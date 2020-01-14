@@ -56,7 +56,13 @@ export const documentFormatting: ServerRequestHandler<
     return NULL_TEXT_EDIT
   }
   const text = document.getText()
-  const newText = await formatDocument(text, document.uri, document.languageId)
+  const newText = await formatDocument(
+    text,
+    document.uri,
+    document.languageId
+  ).catch(error =>
+    console.log(`[Error] Prettier failed to format the file due to: \n` + error)
+  )
   if (!newText) {
     return NULL_TEXT_EDIT
   }

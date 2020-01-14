@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatGraphql} from './graphql'
+import { format } from 'prettier'
+import { formatGraphql } from './graphql'
 
 test('format graphql', () => {
   expect(
@@ -8,7 +8,7 @@ test('format graphql', () => {
   name: String
 }`,
       {
-        filepath: 'index.gql'
+        filepath: 'index.gql',
       }
     )
   ).toBe(`type Person {

@@ -9,7 +9,7 @@
     "bundle:server": "webpack --mode production --config ./webpack/server.webpack.config.js",
     "package": "npm run clean && npm run bundle:client && npm run bundle:server && node scripts/package.js && npm run bundlesize",
     "publish": "npm run package && cd dist && npx semantic-release",
-    "prettier": "prettier --write \"packages/*/src/**/*.ts\"",
+    "prettier": "prettier --config package.json --write \"packages/*/src/**/*.ts\"",
     "bundlesize": "bundlesize"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@ import {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
-  TransportKind
+  TransportKind,
 } from 'vscode-languageclient'
 
 export interface LanguageClientProxy {
@@ -29,8 +29,8 @@ export const createLanguageClientProxy: (
     debug: {
       module: serverModule,
       transport: TransportKind.ipc,
-      options: { execArgv: ['--nolazy', '--inspect=6009'] }
-    }
+      options: { execArgv: ['--nolazy', '--inspect=6009'] },
+    },
   }
   const outputChannel = vscode.window.createOutputChannel(name)
   clientOptions.outputChannel = {
@@ -59,7 +59,7 @@ export const createLanguageClientProxy: (
     },
     dispose() {
       outputChannel.dispose()
-    }
+    },
   }
   let languageClient: LanguageClient
   const setLanguageClient = async (clientOptions: LanguageClientOptions) => {
@@ -73,7 +73,7 @@ export const createLanguageClientProxy: (
       if (languageClient.needsStop()) {
         languageClient.stop()
       }
-    }
+    },
   })
   setLanguageClient(clientOptions)
   const languageClientProxy: LanguageClientProxy = {
@@ -82,7 +82,7 @@ export const createLanguageClientProxy: (
         languageClient.stop()
       }
       await setLanguageClient(clientOptions)
-    }
+    },
   }
   return languageClientProxy
 }

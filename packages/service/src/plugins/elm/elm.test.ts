@@ -9,7 +9,7 @@ main =
     text "Hello, World!"
 `,
       {
-        filepath: 'index.elm'
+        filepath: 'index.elm',
       }
     )
   ).toBe(`module Main exposing (main)

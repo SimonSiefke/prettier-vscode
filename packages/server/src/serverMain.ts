@@ -27,6 +27,7 @@ const handleRequest: <P, R, E>(
   try {
     return await fn(...args)
   } catch (error) {
+    console.log('handle error')
     handleError(error)
     throw error
   }

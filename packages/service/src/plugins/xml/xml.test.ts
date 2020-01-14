@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatXml} from './xml'
+import { format } from 'prettier'
+import { formatXml } from './xml'
 
 test('format xml', () => {
   expect(
@@ -7,7 +7,7 @@ test('format xml', () => {
       `
 <test />`,
       {
-        filepath: 'index.xml'
+        filepath: 'index.xml',
       }
     )
   ).toBe(`<test />

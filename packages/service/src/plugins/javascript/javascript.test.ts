@@ -1,10 +1,10 @@
-import {format} from 'prettier'
-import {formatJavascript} from './javascript'
+import { format } from 'prettier'
+import { formatJavascript } from './javascript'
 
 test('format javascript', () => {
   expect(
     formatJavascript(format)(`   let x`, {
-      filepath: 'index.js'
+      filepath: 'index.js',
     })
   ).toBe(`let x;
 `)

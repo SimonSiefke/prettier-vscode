@@ -1,10 +1,10 @@
-import {format} from 'prettier'
-import {formatJson} from './json'
+import { format } from 'prettier'
+import { formatJson } from './json'
 
 test('format json', () => {
   expect(
     formatJson(format)(`   {}`, {
-      filepath: 'index.json'
+      filepath: 'index.json',
     })
   ).toBe(`{}
 `)

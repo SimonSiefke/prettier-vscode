@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatTwig} from './twig'
+import { format } from 'prettier'
+import { formatTwig } from './twig'
 
 test('format twig', () => {
   expect(
@@ -7,7 +7,7 @@ test('format twig', () => {
       `
 <h1>hello world</h1>`,
       {
-        filepath: 'index.twig'
+        filepath: 'index.twig',
       }
     )
   ).toBe(`<h1>

@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatFlow} from './flow'
+import { format } from 'prettier'
+import { formatFlow } from './flow'
 
 test('format vue', () => {
   expect(
@@ -10,7 +10,7 @@ function square(n: number): number {
   return n * n;
 }`,
       {
-        filepath: 'index.js'
+        filepath: 'index.js',
       }
     )
   ).toBe(`// @flow

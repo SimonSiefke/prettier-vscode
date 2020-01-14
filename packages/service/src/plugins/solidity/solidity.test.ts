@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatSolidity} from './solidity'
+import { format } from 'prettier'
+import { formatSolidity } from './solidity'
 
 test('format solidity', () => {
   expect(
@@ -14,7 +14,7 @@ contract helloWorld {
 }
 `,
       {
-        filepath: 'index.sol'
+        filepath: 'index.sol',
       }
     )
   ).toBe(`pragma solidity ^0.4.22;

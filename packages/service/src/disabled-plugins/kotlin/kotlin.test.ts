@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatKotlin} from './kotlin'
+import { format } from 'prettier'
+import { formatKotlin } from './kotlin'
 
 test.skip('format kotlin', () => {
   expect(
@@ -9,7 +9,7 @@ fun main(args : Array<String>) {
     println("Hello, World!")
 }`,
       {
-        filepath: 'index.kt'
+        filepath: 'index.kt',
       }
     )
   ).toBe(`fun main(args : Array<String>) {

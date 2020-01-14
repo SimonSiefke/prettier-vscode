@@ -1,2 +1,2 @@
-import { createRunner } from '../test-utils';
-export const run = createRunner(__dirname);
+import { createRunner } from '../test-utils'
+export const run = createRunner(__dirname)

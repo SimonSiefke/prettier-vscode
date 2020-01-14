@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatSlice} from './slice'
+import { format } from 'prettier'
+import { formatSlice } from './slice'
 
 test.skip('format slice', () => {
   expect(
@@ -13,7 +13,7 @@ enum Fruit { Apple, Pear, Orange };
 
 `,
       {
-        filepath: 'index.ice'
+        filepath: 'index.ice',
       }
     )
   ).toBe(`#pragma once

@@ -5,8 +5,8 @@ import { localPluginFormatting } from './local-plugins/local-plugin-formatting/l
 import { LocalPlugin } from './local-plugins/pluginApi'
 
 const LOCAL_PLUGINS: LocalPlugin[] = [
-  localPluginFormatting
-  // localPluginEnableFormatOnSave
+  localPluginFormatting,
+  // localPluginEnableFormatOnSave,
 ]
 
 export const activate: (

@@ -1,5 +1,5 @@
-import {format} from 'prettier'
-import {formatPug} from './pug'
+import { format } from 'prettier'
+import { formatPug } from './pug'
 
 test.skip('format pug', () => {
   expect(
@@ -10,7 +10,7 @@ test.skip('format pug', () => {
 a(href=link)
 `,
       {
-        filepath: 'index.pug'
+        filepath: 'index.pug',
       }
     )
   ).toBe(`
