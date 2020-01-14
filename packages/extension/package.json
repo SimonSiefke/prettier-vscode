@@ -151,7 +151,7 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Enabled language ids",
+      "title": "Prettier configuration",
       "properties": {
         "prettier.enabledLanguageIds": {
           "description": "Languages for which formatting with Prettier should be enabled",
