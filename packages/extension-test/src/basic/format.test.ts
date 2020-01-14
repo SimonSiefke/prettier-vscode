@@ -1,5 +1,5 @@
-import { before, test } from 'mocha'
-import { activateExtension, createTestFile, run, TestCase } from '../test-utils'
+import {before, test} from 'mocha'
+import {activateExtension, createTestFile, run, TestCase} from '../test-utils'
 
 suite('Format', () => {
   before(async () => {
@@ -298,7 +298,7 @@ class HelloWorld {
     })
   })
 
-  test('solidity', async () => {
+  test.skip('solidity', async () => {
     await createTestFile('index.sol')
     const testCases: TestCase[] = [
       {
