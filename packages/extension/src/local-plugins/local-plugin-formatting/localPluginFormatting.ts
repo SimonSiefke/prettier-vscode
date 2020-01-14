@@ -9,6 +9,7 @@ const DEFAULT_ENABLED_LANGUAGE_IDS = [
   'elm',
   'flow',
   'graphql',
+  'handlebars',
   'html',
   'java',
   'javascript',

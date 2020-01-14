@@ -28,6 +28,10 @@ declare module 'prettier-plugin-svelte' {
   export as namespace PrettierPlugin
 }
 
+declare module 'prettier-plugin-toml' {
+  export as namespace PrettierPlugin
+}
+
 declare module 'prettier-plugin-solidity' {
   export as namespace PrettierPlugin
 }

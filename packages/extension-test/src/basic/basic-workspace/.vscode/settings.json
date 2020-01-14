@@ -15,6 +15,9 @@
   "[graphql]": {
     "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
   },
+  "[handlebars]": {
+    "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+  },
   "[html]": {
     "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
   },

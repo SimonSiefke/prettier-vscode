@@ -49,6 +49,10 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
     const { formatGraphql } = await import('./plugins/graphql/graphql')
     return formatGraphql
   },
+  async handlebars() {
+    const { formatHandlebars } = await import('./plugins/handlebars/handlebars')
+    return formatHandlebars
+  },
   async html() {
     const { formatHtml } = await import('./plugins/html/html')
     return formatHtml

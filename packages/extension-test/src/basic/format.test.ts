@@ -95,6 +95,21 @@ main =
     })
   })
 
+  test('handlebars', async () => {
+    await createTestFile('index.hbs')
+    const testCases: TestCase[] = [
+      {
+        input: `   <h1>hello world</h1>`,
+        expect: `<h1>
+  hello world
+</h1>`,
+      },
+    ]
+    await run(testCases, {
+      afterCommands,
+    })
+  })
+
   test('java', async () => {
     await createTestFile('index.java')
     const testCases: TestCase[] = [
