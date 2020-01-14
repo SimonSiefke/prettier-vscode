@@ -23,7 +23,14 @@ fs.writeFileSync(
 )
 
 fs.copyFileSync(path.join(root, 'README.md'), path.join(root, 'dist/README.md'))
-fs.copyFileSync(path.join(root, 'packages/extension/icon.png'), path.join(root, 'dist/icon.png'))
+fs.copyFileSync(
+  path.join(root, 'packages/extension/icon.png'),
+  path.join(root, 'dist/icon.png')
+)
+fs.copyFileSync(
+  path.join(root, 'packages/extension/package-json-schema.json'),
+  path.join(root, 'dist/package-json-schema.json')
+)
 
 let extensionMain = fs
   .readFileSync(
