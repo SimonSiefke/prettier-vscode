@@ -2,9 +2,9 @@
 
 # Prettier for VSCode
 
-<!-- TODO demo image -->
+![demo](./demo_images/demo.gif)
 
-<!-- TODO update badge -->
+<br>
 
 ## Differences to the official prettier extension
 
@@ -17,6 +17,8 @@
 | Implemented as a language server so that it never slows down VSCode                                                              | ✅             |                                                                            |
 | More configuration options                                                                                                       |                | ✅                                                                         |
 | Less configuration options, more opinionated                                                                                     | ✅             |                                                                            |
+
+<br>
 
 ## Settings
 
