@@ -154,6 +154,7 @@
       "title": "Enabled language ids",
       "properties": {
         "prettier.enabledLanguageIds": {
+          "description": "Languages for which formatting with Prettier should be enabled",
           "type": "array",
           "uniqueItems": true,
           "items": {
