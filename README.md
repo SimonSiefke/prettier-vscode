@@ -17,6 +17,7 @@
 | Implemented as a language server so that it never slows down VSCode                                                              | ✅             |                                                                            |
 | More configuration options                                                                                                       |                | ✅                                                                         |
 | Less configuration options, more opinionated                                                                                     | ✅             |                                                                            |
+| Plugin support                                                                                                                   | not yet        | ✅                                                                         |
 
 <br>
 
