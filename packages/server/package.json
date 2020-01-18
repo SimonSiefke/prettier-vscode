@@ -6,7 +6,7 @@
     "dev": "tsc -b -w"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.8.0",
+    "@babel/code-frame": "^7.8.3",
     "service": "^1.0.0-dev",
     "source-map-support": "^0.5.16",
     "vscode-languageserver": "^6.0.0-next.9",
@@ -15,6 +15,6 @@
   "devDependencies": {
     "@types/babel__code-frame": "^7.0.1",
     "@types/source-map-support": "^0.5.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   }
 }
