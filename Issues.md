@@ -30,3 +30,5 @@ instead of
 import { a } from 'a'
 
  -->
+
+<!-- TODO bug with dynamic config required from node modules -->
