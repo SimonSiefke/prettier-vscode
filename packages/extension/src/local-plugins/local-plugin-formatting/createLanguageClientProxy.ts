@@ -4,12 +4,19 @@ import {
   LanguageClientOptions,
   ServerOptions,
   TransportKind,
+  RequestType,
 } from 'vscode-languageclient'
+
+type VslSendRequest = <P, R, E, RO>(
+  type: RequestType<P, R, E, RO>,
+  params: P
+) => Thenable<R>
 
 export interface LanguageClientProxy {
   readonly restart: (
     languageClientOptions: LanguageClientOptions
   ) => Promise<void>
+  readonly sendRequest: VslSendRequest
 }
 
 export const createLanguageClientProxy: (
@@ -83,6 +90,7 @@ export const createLanguageClientProxy: (
       }
       await setLanguageClient(clientOptions)
     },
+    sendRequest: (type, params) => languageClient.sendRequest(type, params),
   }
   return languageClientProxy
 }

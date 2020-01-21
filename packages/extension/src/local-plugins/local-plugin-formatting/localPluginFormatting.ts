@@ -1,5 +1,9 @@
 import * as vscode from 'vscode'
-import { DocumentSelector, LanguageClientOptions } from 'vscode-languageclient'
+import {
+  DocumentSelector,
+  LanguageClientOptions,
+  RequestType,
+} from 'vscode-languageclient'
 import { LocalPlugin } from '../pluginApi'
 import { createLanguageClientProxy } from './createLanguageClientProxy'
 
@@ -65,6 +69,7 @@ const PRETTIER_CONFIG_FILES = [
   'package.json',
   'prettier.config.js',
   '.editorconfig',
+  '.prettierignore',
 ]
 
 export const localPluginFormatting: LocalPlugin = async context => {
@@ -87,12 +92,12 @@ export const localPluginFormatting: LocalPlugin = async context => {
   )
   context.subscriptions.push(prettierConfigWatcher)
   prettierConfigWatcher.onDidChange(() =>
-    languageClientProxy.restart(getLanguageClientOptions())
+    languageClientProxy.sendRequest(new RequestType('$/clearCache'), {})
   )
   prettierConfigWatcher.onDidCreate(() =>
-    languageClientProxy.restart(getLanguageClientOptions())
+    languageClientProxy.sendRequest(new RequestType('$/clearCache'), {})
   )
   prettierConfigWatcher.onDidDelete(() =>
-    languageClientProxy.restart(getLanguageClientOptions())
+    languageClientProxy.sendRequest(new RequestType('$/clearCache'), {})
   )
 }

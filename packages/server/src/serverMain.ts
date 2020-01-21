@@ -2,8 +2,12 @@ import {
   createConnection,
   TextDocumentSyncKind,
   ServerRequestHandler,
+  RequestType,
 } from 'vscode-languageserver'
-import { documentFormatting } from './documentFormatting'
+import {
+  documentFormatting,
+  clearDocumentFormattingCache,
+} from './documentFormatting'
 import { documents } from './documents'
 import {
   enableBetterErrorHandlingAndLogging,
@@ -27,13 +31,17 @@ const handleRequest: <P, R, E>(
   try {
     return await fn(...args)
   } catch (error) {
-    console.log('handle error')
     handleError(error)
     throw error
   }
 }
 
 connection.onDocumentFormatting(handleRequest(documentFormatting))
+
+connection.onRequest(
+  new RequestType<{}, Promise<void>, undefined, undefined>('$/clearCache'),
+  clearDocumentFormattingCache
+)
 
 documents.listen(connection)
 connection.listen()

@@ -1,4 +1,3 @@
-import { formatDocument, preloadFormatter } from 'service'
 import {
   DocumentFormattingParams,
   Range,
@@ -9,9 +8,17 @@ import { documents } from './documents'
 
 const NULL_TEXT_EDIT: TextEdit[] = []
 
-documents.onDidOpen(event =>
-  preloadFormatter(event.document.uri, event.document.languageId)
-)
+documents.onDidOpen(async event => {
+  const { preloadFormatter } = await import('service')
+  await preloadFormatter(event.document.uri, event.document.languageId).catch(
+    error => {
+      console.log(
+        `[Error] Prettier failed to preload formatter due to: \n` + error
+      )
+      console.log(error.stack)
+    }
+  )
+})
 
 const minimizeEdit: (
   text: string,
@@ -56,13 +63,15 @@ export const documentFormatting: ServerRequestHandler<
     return NULL_TEXT_EDIT
   }
   const text = document.getText()
+  const { formatDocument } = await import('service')
   const newText = await formatDocument(
     text,
     document.uri,
     document.languageId
-  ).catch(error =>
+  ).catch(error => {
     console.log(`[Error] Prettier failed to format the file due to: \n` + error)
-  )
+    console.log(error.stack)
+  })
   if (!newText) {
     return NULL_TEXT_EDIT
   }
@@ -75,4 +84,10 @@ export const documentFormatting: ServerRequestHandler<
     insertedText
   )
   return [textEdit]
+}
+
+export const clearDocumentFormattingCache = async () => {
+  console.log('[Prettier] clear cache')
+  const { clearCache } = await import('service')
+  clearCache()
 }

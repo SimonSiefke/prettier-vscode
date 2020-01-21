@@ -34,3 +34,5 @@ import { a } from 'a'
 <!-- TODO bug with dynamic config required from node modules -->
 
 <!-- TODO test if it works when package.json is invalid -->
+
+<!-- TODO test if it works when changing prettierrc -->

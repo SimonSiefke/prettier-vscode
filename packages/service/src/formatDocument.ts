@@ -1,4 +1,10 @@
-import { format, getFileInfo, Options, resolveConfig } from 'prettier'
+import {
+  format,
+  getFileInfo,
+  Options,
+  resolveConfig,
+  clearConfigCache,
+} from 'prettier'
 import { Formatter } from './plugins/pluginApi'
 
 const DEFAULT_OPTIONS: Options = {
@@ -9,7 +15,7 @@ const DEFAULT_OPTIONS: Options = {
   singleQuote: true,
 }
 
-const getOptionsCache: { [key: string]: Options } = Object.create(null)
+let getOptionsCache: { [key: string]: Options } = Object.create(null)
 const getOptions: (filePath: string) => Promise<Options> = async filePath => {
   if (!(filePath in getOptionsCache)) {
     let options = (await resolveConfig(filePath)) || DEFAULT_OPTIONS
@@ -19,7 +25,7 @@ const getOptions: (filePath: string) => Promise<Options> = async filePath => {
   return getOptionsCache[filePath]
 }
 
-const getIsIgnoredCache: { [key: string]: boolean } = Object.create(null)
+let getIsIgnoredCache: { [key: string]: boolean } = Object.create(null)
 const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
   if (!(filePath in getIsIgnoredCache)) {
     const fileInfo = await getFileInfo(filePath)
@@ -143,7 +149,7 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
   },
 }
 
-const getFormatterCache: {
+let getFormatterCache: {
   [key: string]: Formatter | undefined
 } = Object.create(null)
 const getFormatter: (
@@ -159,19 +165,18 @@ const getFormatter: (
   return getFormatterCache[languageId]
 }
 
-const preloadFormatterCache: Set<string> = new Set()
+let preloadFormatterCache: Set<string> = new Set()
 export const preloadFormatter: (
   filePath: string,
   languageId: string
 ) => Promise<void> = async (filePath: string, languageId: string) => {
+  if (filePath.endsWith('.svg')) {
+    filePath = filePath.replace(/\.svg$/, '.xml')
+  }
   if (preloadFormatterCache.has(filePath)) {
     return
   }
   preloadFormatterCache.add(filePath)
-  if (filePath.endsWith('.svg')) {
-    // TODO support svg
-    return
-  }
   const formatter = await getFormatter(languageId)
   const isIgnored = await getIsIgnored(filePath)
   const options = await getOptions(filePath)
@@ -189,8 +194,7 @@ export const formatDocument: (
   languageId: string
 ) => Promise<string | undefined> = async (text, filePath, languageId) => {
   if (filePath.endsWith('.svg')) {
-    // TODO support svg
-    return undefined
+    filePath = filePath.replace(/\.svg$/, '.xml')
   }
   const isIgnoredPromise = getIsIgnored(filePath)
   const formatLanguagePromise = getFormatter(languageId)
@@ -204,4 +208,12 @@ export const formatDocument: (
     return NULL_FORMATTING_RESULT
   }
   return formatLanguage(format)(text, options)
+}
+
+export const clearCache = () => {
+  getOptionsCache = Object.create(null)
+  getIsIgnoredCache = Object.create(null)
+  getFormatterCache = Object.create(null)
+  preloadFormatterCache = new Set()
+  clearConfigCache()
 }
