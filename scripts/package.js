@@ -24,6 +24,10 @@ fs.writeFileSync(
 
 fs.copyFileSync(path.join(root, 'README.md'), path.join(root, 'dist/README.md'))
 fs.copyFileSync(
+  path.join(root, 'CHANGELOG.md'),
+  path.join(root, 'dist/CHANGELOG.md')
+)
+fs.copyFileSync(
   path.join(root, 'packages/extension/icon.png'),
   path.join(root, 'dist/icon.png')
 )
