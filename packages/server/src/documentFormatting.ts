@@ -56,6 +56,7 @@ const minimizeEdit: (
 export const documentFormatting: ServerRequestHandler<
   DocumentFormattingParams,
   TextEdit[],
+  any,
   void
 > = async params => {
   const document = documents.get(params.textDocument.uri)

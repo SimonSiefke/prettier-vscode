@@ -25,9 +25,9 @@ connection.onInitialize(() => ({
   },
 }))
 
-const handleRequest: <P, R, E>(
-  handler: ServerRequestHandler<P, R, E>
-) => ServerRequestHandler<P, R, E> = fn => async (...args) => {
+const handleRequest: <P, R, PR, E>(
+  handler: ServerRequestHandler<P, R, PR, E>
+) => ServerRequestHandler<P, R, PR, E> = fn => async (...args) => {
   try {
     return await fn(...args)
   } catch (error) {
