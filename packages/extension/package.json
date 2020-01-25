@@ -233,6 +233,6 @@
   },
   "dependencies": {
     "source-map-support": "^0.5.16",
-    "vscode-languageclient": "^6.0.0-next.10"
+    "vscode-languageclient": "^6.1.0"
   }
 }

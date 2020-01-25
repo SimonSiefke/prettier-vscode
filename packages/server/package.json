@@ -9,12 +9,12 @@
     "@babel/code-frame": "^7.8.3",
     "service": "^1.0.0-dev",
     "source-map-support": "^0.5.16",
-    "vscode-languageserver": "^6.0.0-next.9",
-    "vscode-languageserver-textdocument": "^1.0.0-next.6"
+    "vscode-languageserver": "^6.1.0",
+    "vscode-languageserver-textdocument": "^1.0.1-next.1"
   },
   "devDependencies": {
     "@types/babel__code-frame": "^7.0.1",
-    "@types/source-map-support": "^0.5.0",
+    "@types/source-map-support": "^0.5.1",
     "typescript": "^3.7.5"
   }
 }
