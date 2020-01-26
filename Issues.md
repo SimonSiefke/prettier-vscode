@@ -36,3 +36,5 @@ import { a } from 'a'
 <!-- TODO test if it works when package.json is invalid -->
 
 <!-- TODO test if it works when changing prettierrc -->
+
+<!-- TODO support virtual file systems, e.g. memfs -->
