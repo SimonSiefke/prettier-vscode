@@ -9,7 +9,7 @@
     "theme": "light"
   },
   "engines": {
-    "vscode": "^1.41.1"
+    "vscode": "^1.30.0"
   },
   "categories": [
     "Programming Languages",
