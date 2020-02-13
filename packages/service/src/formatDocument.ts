@@ -165,14 +165,22 @@ const getFormatter: (
   return getFormatterCache[languageId]
 }
 
+const fixPath = (filePath: string) => {
+  if (filePath.endsWith('.svg')) {
+    return filePath.replace(/\.svg$/, '$1.xml')
+  }
+  if (filePath.endsWith('.map')) {
+    return filePath.replace(/\.map$/, '$1.json')
+  }
+  return filePath
+}
+
 let preloadFormatterCache: Set<string> = new Set()
 export const preloadFormatter: (
   filePath: string,
   languageId: string
 ) => Promise<void> = async (filePath: string, languageId: string) => {
-  if (filePath.endsWith('.svg')) {
-    filePath = filePath.replace(/\.svg$/, '.xml')
-  }
+  filePath = fixPath(filePath)
   if (preloadFormatterCache.has(filePath)) {
     return
   }
@@ -193,9 +201,7 @@ export const formatDocument: (
   filePath: string,
   languageId: string
 ) => Promise<string | undefined> = async (text, filePath, languageId) => {
-  if (filePath.endsWith('.svg')) {
-    filePath = filePath.replace(/\.svg$/, '.xml')
-  }
+  filePath = fixPath(filePath)
   const isIgnoredPromise = getIsIgnored(filePath)
   const formatLanguagePromise = getFormatter(languageId)
   const optionsPromise = getOptions(filePath)
