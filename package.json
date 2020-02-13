@@ -48,7 +48,7 @@
     },
     {
       "path": "./dist/packages/server/dist/serverMain.js",
-      "maxSize": "10 kB",
+      "maxSize": "11 kB",
       "compression": "none"
     }
   ],
