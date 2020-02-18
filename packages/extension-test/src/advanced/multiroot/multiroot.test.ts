@@ -20,6 +20,7 @@ suite('Multiroot', () => {
       vscode.Uri.file(indexJs1)
     )
     await vscode.window.showTextDocument(document1)
+    await new Promise(resolve => setTimeout(resolve, 100))
     await vscode.commands.executeCommand('editor.action.format')
     assert.equal(
       vscode.window.activeTextEditor.document.getText(),
@@ -30,6 +31,7 @@ suite('Multiroot', () => {
       vscode.Uri.file(indexJs2)
     )
     await vscode.window.showTextDocument(document2)
+    await new Promise(resolve => setTimeout(resolve, 100))
     await vscode.commands.executeCommand('editor.action.format')
     assert.equal(
       vscode.window.activeTextEditor.document.getText(),
@@ -40,6 +42,7 @@ suite('Multiroot', () => {
       vscode.Uri.file(indexJs3)
     )
     await vscode.window.showTextDocument(document3)
+    await new Promise(resolve => setTimeout(resolve, 100))
     await vscode.commands.executeCommand('editor.action.format')
     assert.equal(
       vscode.window.activeTextEditor.document.getText(),
