@@ -46,14 +46,14 @@ const run = async (test: Test) => {
 
 const tests = [
   {
-    path: 'advanced/multiroot',
-    name: 'multiroot',
-    open: '/multiroot.code-workspace',
-  },
-  {
     path: 'basic',
     name: 'basic',
     open: '',
+  },
+  {
+    path: 'advanced/multiroot',
+    name: 'multiroot',
+    open: '/multiroot.code-workspace',
   },
 ]
 ;(async () => {
