@@ -50,11 +50,11 @@ const tests = [
     name: 'basic',
     open: '',
   },
-  {
-    path: 'advanced/multiroot',
-    name: 'multiroot',
-    open: '/multiroot.code-workspace',
-  },
+  // {
+  //   path: 'advanced/multiroot',
+  //   name: 'multiroot',
+  //   open: '/multiroot.code-workspace',
+  // },
 ]
 ;(async () => {
   for (const testCase of tests) {
