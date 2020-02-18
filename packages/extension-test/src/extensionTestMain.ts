@@ -8,23 +8,25 @@ const extensionDevelopmentPath = path.join(root, 'packages/extension')
 
 interface Test {
   path: string
+  name: string
+  open: string
 }
 
 const run = async (test: Test) => {
   try {
     const workspacePathSrc = path.join(
       __dirname.replace('dist', 'src'),
-      `${test.path}/${test.path}-workspace`
+      `${test.path}/${test.name}-workspace`
     )
     const workspacePathDist = path.join(
       __dirname,
-      `${test.path}/${test.path}-workspace-dist`
+      `${test.path}/${test.name}-workspace-dist`
     )
     await fs.copy(workspacePathSrc, workspacePathDist)
     const extensionTestsPath = path.join(__dirname, test.path, 'suite')
     const vscodeExecutablePath = await downloadAndUnzipVSCode(vscodeVersion)
-
-    const launchArgs: string[] = ['--disable-extensions', workspacePathDist]
+    const open = `${workspacePathDist}${test.open}`
+    const launchArgs: string[] = ['--disable-extensions', open]
     await runTests({
       vscodeExecutablePath,
       extensionDevelopmentPath,
@@ -42,4 +44,20 @@ const run = async (test: Test) => {
   }
 }
 
-run({ path: 'basic' })
+const tests = [
+  {
+    path: 'advanced/multiroot',
+    name: 'multiroot',
+    open: '/multiroot.code-workspace',
+  },
+  {
+    path: 'basic',
+    name: 'basic',
+    open: '',
+  },
+]
+;(async () => {
+  for (const testCase of tests) {
+    await run(testCase)
+  }
+})()

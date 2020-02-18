@@ -5,6 +5,7 @@ import {
   TextEdit,
 } from 'vscode-languageserver'
 import { documents } from './documents'
+import { URI } from 'vscode-uri'
 
 const NULL_TEXT_EDIT: TextEdit[] = []
 
@@ -65,9 +66,10 @@ export const documentFormatting: ServerRequestHandler<
   }
   const text = document.getText()
   const { formatDocument } = await import('service')
+  const filePath = URI.parse(document.uri).fsPath
   const newText = await formatDocument(
     text,
-    document.uri,
+    filePath,
     document.languageId
   ).catch(error => {
     console.log(`[Error] Prettier failed to format the file due to: \n` + error)

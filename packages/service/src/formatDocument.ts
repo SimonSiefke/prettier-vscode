@@ -172,6 +172,9 @@ const fixPath = (filePath: string) => {
   if (filePath.endsWith('.map')) {
     return filePath.replace(/\.map$/, '$1.json')
   }
+  if (filePath.endsWith('.code-workspace')) {
+    return filePath.replace(/\.code-workspace$/, '$1.json')
+  }
   return filePath
 }
 
