@@ -35,6 +35,10 @@ const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
 }
 
 const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
+  // async ansible() {
+  //   const { formatYaml } = await import('./plugins/yaml/yaml')
+  //   return formatYaml
+  // },
   async csharp() {
     const { formatCsharp } = await import('./plugins/csharp/csharp')
     return formatCsharp
