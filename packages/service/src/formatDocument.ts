@@ -28,7 +28,7 @@ const getOptions: (filePath: string) => Promise<Options> = async filePath => {
 let getIsIgnoredCache: { [key: string]: boolean } = Object.create(null)
 const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
   if (!(filePath in getIsIgnoredCache)) {
-    const fileInfo = await getFileInfo(filePath)
+    const fileInfo = await getFileInfo(filePath, { withNodeModules: true })
     getIsIgnoredCache[filePath] = fileInfo.ignored
   }
   return getIsIgnoredCache[filePath]
