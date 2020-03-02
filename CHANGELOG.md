@@ -2,6 +2,7 @@
 
 | Version | Date     | Changelog                                                              |
 | ------- | -------- | ---------------------------------------------------------------------- |
+| 1.1.20  | 02.03.20 | Fix: Format based on languageId, not file extension                    |
 | 1.1.17  | 18.02.20 | Fix: Multiroot workspace support                                       |
 | 1.1.12  | 08.02.20 | Fix: Support for VSCode versions lower than `1.41.1`                   |
 | 1.1.7   | 21.01.20 | Fix: Support for SVG<br> Fix: Clear Prettier cache when config changes |
