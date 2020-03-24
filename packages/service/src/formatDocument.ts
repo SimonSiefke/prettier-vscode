@@ -101,18 +101,18 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
     const { formatMdx } = await import('./plugins/mdx/mdx')
     return formatMdx
   },
-  async php() {
-    const { formatPhp } = await import('./plugins/php/php')
-    return formatPhp
-  },
+  // async php() {
+  //   const { formatPhp } = await import('./plugins/php/php')
+  //   return formatPhp
+  // },
   async postcss() {
     const { formatPostcss } = await import('./plugins/postcss/postcss')
     return formatPostcss
   },
-  async ruby() {
-    const { formatRuby } = await import('./plugins/ruby/ruby')
-    return formatRuby
-  },
+  // async ruby() {
+  //   const { formatRuby } = await import('./plugins/ruby/ruby')
+  //   return formatRuby
+  // },
   async scss() {
     const { formatScss } = await import('./plugins/scss/scss')
     return formatScss

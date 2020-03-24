@@ -7,14 +7,14 @@
     "e2e": "rimraf dist tsconfig.tsbuildinfo && npm run build && node dist/extensionTestMain"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.0.1",
-    "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.1",
-    "@types/vscode": "^1.42.0",
+    "@types/fs-extra": "^8.1.0",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.3",
+    "@types/vscode": "^1.43.0",
     "fs-extra": "^9.0.0",
-    "mocha": "^7.0.1",
+    "mocha": "^7.1.1",
     "rimraf": "^3.0.2",
-    "typescript": "^3.7.5",
+    "typescript": "^3.8.3",
     "vscode-test": "^1.3.0"
   }
 }
