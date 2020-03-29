@@ -22,7 +22,7 @@
     "@prettier/plugin-xml": "^0.7.2",
     "prettier": "^2.0.2",
     "prettier-plugin-csharp": "^0.6.0-development",
-    "prettier-plugin-elm": "^0.6.0",
+    "prettier-plugin-elm": "^0.7.0",
     "prettier-plugin-java": "^0.7.1",
     "prettier-plugin-svelte": "^0.7.0",
     "prettier-plugin-twig-melody": "^0.4.2",
