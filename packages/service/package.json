@@ -16,7 +16,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@prettier/plugin-php": "^0.13.0",
+    "@prettier/plugin-php": "^0.14.0",
     "@prettier/plugin-pug": "^1.1.10",
     "@prettier/plugin-ruby": "^0.18.0",
     "@prettier/plugin-xml": "^0.7.2",
