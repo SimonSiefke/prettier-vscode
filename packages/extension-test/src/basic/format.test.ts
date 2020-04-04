@@ -238,18 +238,18 @@ class HelloWorld {
     })
   })
 
-  // test('php', async () => {
-  //   await createTestFile('index.php')
-  //   const testCases: TestCase[] = [
-  //     {
-  //       input: `<?php echo '<p>Hello World</p>'; ?>`,
-  //       expect: `<?php echo '<p>Hello World</p>'; ?>`,
-  //     },
-  //   ]
-  //   await run(testCases, {
-  //     afterCommands,
-  //   })
-  // })
+  test('php', async () => {
+    await createTestFile('index.php')
+    const testCases: TestCase[] = [
+      {
+        input: `<?php echo '<p>Hello World</p>'  ; ?>`,
+        expect: `<?php echo '<p>Hello World</p>'; ?>\n`,
+      },
+    ]
+    await run(testCases, {
+      afterCommands,
+    })
+  })
 
   test('postcss', async () => {
     await createTestFile('index2.css')
