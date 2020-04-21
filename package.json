@@ -7,7 +7,8 @@
     "clean": "rimraf dist tmp",
     "bundle:client": "webpack --mode production --config ./webpack/client.webpack.config.js",
     "bundle:server": "webpack --mode production --config ./webpack/server.webpack.config.js",
-    "package": "npm run clean && npm run bundle:client && npm run bundle:server && node scripts/package.js && npm run bundlesize",
+    "bundle:worker": "webpack --mode production --config ./webpack/worker.webpack.config.js",
+    "package": "npm run clean && npm run bundle:client && npm run bundle:server && npm run bundle:worker && node scripts/package.js && npm run bundlesize",
     "publish": "npm run package && cd dist && npx semantic-release",
     "prettier": "prettier --config package.json --write \"packages/*/src/**/*.ts\"",
     "bundlesize": "bundlesize"
@@ -49,6 +50,11 @@
     {
       "path": "./dist/packages/server/dist/serverMain.js",
       "maxSize": "11 kB",
+      "compression": "none"
+    },
+    {
+      "path": "./dist/packages/server/dist/worker.js",
+      "maxSize": "7 kB",
       "compression": "none"
     }
   ],

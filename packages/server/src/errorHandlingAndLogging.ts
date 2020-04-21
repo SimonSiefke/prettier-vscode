@@ -1,9 +1,9 @@
 import { codeFrameColumns } from '@babel/code-frame'
 import * as fs from 'fs'
 import { install } from 'source-map-support'
-import { Connection } from 'vscode-languageserver'
+import { Connection, ServerRequestHandler } from 'vscode-languageserver'
 
-export const handleError: (error: Error) => void = error => {
+export const handleError: (error: Error) => void = (error) => {
   console.error(error.stack)
   const lines = error.stack?.split('\n') || []
   let file = lines[1]
@@ -26,10 +26,7 @@ export const handleError: (error: Error) => void = error => {
       console.log('\n' + result + '\n')
     }
   }
-  let relevantStack = (error as Error).stack
-    ?.split('\n')
-    .slice(1)
-    .join('\n')
+  let relevantStack = (error as Error).stack?.split('\n').slice(1).join('\n')
   if (relevantStack?.includes('at CallbackList.invoke')) {
     relevantStack = relevantStack.slice(
       0,
@@ -45,7 +42,7 @@ const useConnectionConsole: (
 ) => (method: 'log' | 'info' | 'error') => (...args: any[]) => void = (
   connection,
   { trace = false } = {}
-) => method => (...args) => {
+) => (method) => (...args) => {
   if (trace) {
     const stack = new Error().stack || ''
     let file = stack.split('\n')[2]
@@ -56,7 +53,7 @@ const useConnectionConsole: (
       connection.console[method]('at ' + path + ':' + line)
     }
   }
-  const stringify: (arg: any) => string = arg => {
+  const stringify: (arg: any) => string = (arg) => {
     if (arg && arg.toString) {
       if (arg.toString() === '[object Promise]') {
         return JSON.stringify(arg)
@@ -76,7 +73,7 @@ const useConnectionConsole: (
  */
 export const enableBetterErrorHandlingAndLogging: (
   connection: Connection
-) => void = connection => {
+) => void = (connection) => {
   install()
   const connectionConsole = useConnectionConsole(connection, { trace: false })
   console.log = connectionConsole('log')
@@ -84,4 +81,15 @@ export const enableBetterErrorHandlingAndLogging: (
   console.error = connectionConsole('error')
   process.on('uncaughtException', handleError)
   process.on('unhandledRejection', handleError)
+}
+
+export const handleRequest: <P, R, PR, E>(
+  handler: ServerRequestHandler<P, R, PR, E>
+) => ServerRequestHandler<P, R, PR, E> = (fn) => async (...args) => {
+  try {
+    return await fn(...args)
+  } catch (error) {
+    handleError(error)
+    throw error
+  }
 }

@@ -228,10 +228,13 @@
     }
   },
   "devDependencies": {
+    "@types/node": "^13.13.1",
+    "@types/prettier": "^2.0.0",
     "@types/vscode": "^1.43.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "prettier": "^2.0.5",
     "source-map-support": "^0.5.16",
     "vscode-languageclient": "^6.1.3"
   }

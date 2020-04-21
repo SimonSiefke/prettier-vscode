@@ -43,8 +43,8 @@ const getDocumentSelector: () => DocumentSelector = () => {
     .get<string[]>('enabledLanguageIds', DEFAULT_ENABLED_LANGUAGE_IDS)
   const schemes: string[] = ['file', 'untitled']
   const documentSelector: DocumentSelector = enabledLanguageIds.flatMap(
-    languageId =>
-      schemes.map(scheme => ({
+    (languageId) =>
+      schemes.map((scheme) => ({
         scheme,
         language: languageId,
       }))
@@ -55,7 +55,6 @@ const getDocumentSelector: () => DocumentSelector = () => {
 const getLanguageClientOptions: () => LanguageClientOptions = () => {
   const languageClientOptions: LanguageClientOptions = {
     documentSelector: getDocumentSelector(),
-    // synchronize
   }
   return languageClientOptions
 }
@@ -72,7 +71,7 @@ const PRETTIER_CONFIG_FILES = [
   '.prettierignore',
 ]
 
-export const localPluginFormatting: LocalPlugin = async context => {
+export const localPluginFormatting: LocalPlugin = async (context) => {
   const languageClientProxy = await createLanguageClientProxy(
     context,
     'prettier',
@@ -80,7 +79,7 @@ export const localPluginFormatting: LocalPlugin = async context => {
     getLanguageClientOptions()
   )
   context.subscriptions.push(
-    vscode.workspace.onDidChangeConfiguration(event => {
+    vscode.workspace.onDidChangeConfiguration((event) => {
       if (!event.affectsConfiguration('prettier.enabledLanguageIds')) {
         return
       }

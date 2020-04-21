@@ -38,3 +38,5 @@ import { a } from 'a'
 <!-- TODO test if it works when changing prettierrc -->
 
 <!-- TODO support virtual file systems, e.g. memfs -->
+
+<!-- TODO remove language server because it is unnecessary when there is a worker thread -->

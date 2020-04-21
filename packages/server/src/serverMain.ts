@@ -1,46 +1,65 @@
 import {
   createConnection,
+  InitializeResult,
+  TextDocuments,
   TextDocumentSyncKind,
-  ServerRequestHandler,
   RequestType,
 } from 'vscode-languageserver'
-import {
-  documentFormatting,
-  clearDocumentFormattingCache,
-} from './documentFormatting'
-import { documents } from './documents'
+import { TextDocument } from 'vscode-languageserver-textdocument'
+import { URI } from 'vscode-uri'
 import {
   enableBetterErrorHandlingAndLogging,
-  handleError,
+  handleRequest,
 } from './errorHandlingAndLogging'
+import { clearCache } from 'service'
+
+const documents = new TextDocuments(TextDocument)
 
 const connection = createConnection()
 
 enableBetterErrorHandlingAndLogging(connection)
 
-connection.onInitialize(() => ({
+const INITIALIZE_RESULT: InitializeResult = {
   capabilities: {
     textDocumentSync: TextDocumentSyncKind.Incremental,
     documentFormattingProvider: true,
   },
-}))
-
-const handleRequest: <P, R, PR, E>(
-  handler: ServerRequestHandler<P, R, PR, E>
-) => ServerRequestHandler<P, R, PR, E> = fn => async (...args) => {
-  try {
-    return await fn(...args)
-  } catch (error) {
-    handleError(error)
-    throw error
-  }
 }
 
-connection.onDocumentFormatting(handleRequest(documentFormatting))
+connection.onInitialize(() => INITIALIZE_RESULT)
+
+connection.onDocumentFormatting(
+  handleRequest(async (params, token) => {
+    const document = documents.get(params.textDocument.uri)
+    if (!document) {
+      return undefined
+    }
+    const source = document.getText()
+    const { format } = await import('service')
+    const filePath = URI.parse(document.uri).fsPath
+    const result = await format(source, filePath, document.languageId, token)
+    switch (result.status) {
+      case 'success': {
+        console.log('success')
+        return result.textEdits
+      }
+      case 'error': {
+        console.log('an error occurred')
+        break
+      }
+      case 'ignored': {
+        console.log('file ignored')
+        break
+      }
+    }
+  })
+)
 
 connection.onRequest(
-  new RequestType<{}, Promise<void>, undefined, undefined>('$/clearCache'),
-  clearDocumentFormattingCache
+  new RequestType<{}, void | Promise<void>, undefined, undefined>(
+    '$/clearCache'
+  ),
+  clearCache
 )
 
 documents.listen(connection)

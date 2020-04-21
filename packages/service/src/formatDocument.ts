@@ -1,22 +1,17 @@
-import {
-  format,
-  getFileInfo,
-  Options,
-  resolveConfig,
-  clearConfigCache,
-} from 'prettier'
-import { Formatter } from './plugins/pluginApi'
+import { format, getFileInfo, Options, resolveConfig } from 'prettier'
+import type { TextEdit } from 'vscode-languageserver'
+import { TextDocument } from 'vscode-languageserver-textdocument'
+import type { Formatter } from './plugins/pluginApi'
 
 const DEFAULT_OPTIONS: Options = {
   htmlWhitespaceSensitivity: 'ignore',
-  arrowParens: 'avoid',
   semi: false,
   trailingComma: 'all',
   singleQuote: true,
 }
 
 let getOptionsCache: { [key: string]: Options } = Object.create(null)
-const getOptions: (filePath: string) => Promise<Options> = async filePath => {
+const getOptions: (filePath: string) => Promise<Options> = async (filePath) => {
   if (!(filePath in getOptionsCache)) {
     let options = (await resolveConfig(filePath)) || DEFAULT_OPTIONS
     options = { ...options, filepath: filePath }
@@ -26,7 +21,9 @@ const getOptions: (filePath: string) => Promise<Options> = async filePath => {
 }
 
 let getIsIgnoredCache: { [key: string]: boolean } = Object.create(null)
-const getIsIgnored: (filePath: string) => Promise<boolean> = async filePath => {
+const getIsIgnored: (filePath: string) => Promise<boolean> = async (
+  filePath
+) => {
   if (!(filePath in getIsIgnoredCache)) {
     const fileInfo = await getFileInfo(filePath, { withNodeModules: true })
     getIsIgnoredCache[filePath] = fileInfo.ignored
@@ -101,10 +98,10 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
     const { formatMdx } = await import('./plugins/mdx/mdx')
     return formatMdx
   },
-  async php() {
-    const { formatPhp } = await import('./plugins/php/php')
-    return formatPhp
-  },
+  // async php() {
+  //   const { formatPhp } = await import('./plugins/php/php')
+  //   return formatPhp
+  // },
   async postcss() {
     const { formatPostcss } = await import('./plugins/postcss/postcss')
     return formatPostcss
@@ -121,10 +118,10 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
   //   const { formatSolidity } = await import('./disabled-plugins/solidity/solidity')
   //   return formatSolidity
   // },
-  async svelte() {
-    const { formatSvelte } = await import('./plugins/svelte/svelte')
-    return formatSvelte
-  },
+  // async svelte() {
+  //   const { formatSvelte } = await import('./plugins/svelte/svelte')
+  //   return formatSvelte
+  // },
   async typescript() {
     const { formatTypescript } = await import('./plugins/typescript/typescript')
     return formatTypescript
@@ -158,7 +155,7 @@ let getFormatterCache: {
 } = Object.create(null)
 const getFormatter: (
   languageId: string
-) => Promise<Formatter | undefined> = async languageId => {
+) => Promise<Formatter | undefined> = async (languageId) => {
   if (!(languageId in getFormatterCache)) {
     if (languageId in FORMATTING_MAP) {
       getFormatterCache[languageId] = await FORMATTING_MAP[languageId]()
@@ -204,13 +201,79 @@ export const preloadFormatter: (
   formatter(format)('', options)
 }
 
-const NULL_FORMATTING_RESULT = undefined
+const minimizeEdit: (
+  text: string,
+  newText: string
+) => { startOffset: number; endOffset: number; insertedText: string } = (
+  text,
+  newText
+) => {
+  const length = Math.min(text.length, newText.length)
+  let startSame = 0
+  while (startSame < length) {
+    if (text[startSame] !== newText[startSame]) {
+      break
+    }
+    startSame++
+  }
+  let endSame = 1
+  while (endSame < length - startSame) {
+    if (text[text.length - endSame] !== newText[newText.length - endSame]) {
+      break
+    }
+    endSame++
+  }
+  endSame--
+  const startOffset = startSame
+  const endOffset = text.length - endSame
+  const insertedText = newText.slice(startSame, newText.length - endSame)
+  return {
+    startOffset,
+    endOffset,
+    insertedText,
+  }
+}
+
+const toTextEdit = (
+  source: string,
+  {
+    startOffset,
+    endOffset,
+    insertedText,
+  }: {
+    startOffset: number
+    endOffset: number
+    insertedText: string
+  }
+) => {
+  const document = TextDocument.create('', '', -1, source)
+  const textEdit: TextEdit = {
+    range: {
+      start: document.positionAt(startOffset),
+      end: document.positionAt(endOffset),
+    },
+    newText: insertedText,
+  }
+  return textEdit
+}
+
+export type FormatDocumentResult =
+  | {
+      status: 'success'
+      textEdits: TextEdit[]
+    }
+  | {
+      status: 'ignored'
+    }
+  | {
+      status: 'error'
+    }
 
 export const formatDocument: (
-  text: string,
+  source: string,
   filePath: string,
   languageId: string
-) => Promise<string | undefined> = async (text, filePath, languageId) => {
+) => Promise<FormatDocumentResult> = async (source, filePath, languageId) => {
   filePath = fixPath(filePath, languageId)
   const isIgnoredPromise = getIsIgnored(filePath)
   const formatLanguagePromise = getFormatter(languageId)
@@ -221,15 +284,27 @@ export const formatDocument: (
     optionsPromise,
   ])
   if (!formatLanguage || isIgnored) {
-    return NULL_FORMATTING_RESULT
+    return {
+      status: 'ignored',
+    }
   }
-  return formatLanguage(format)(text, options)
-}
-
-export const clearCache = () => {
-  getOptionsCache = Object.create(null)
-  getIsIgnoredCache = Object.create(null)
-  getFormatterCache = Object.create(null)
-  preloadFormatterCache = new Set()
-  clearConfigCache()
+  let formattedSource: string | undefined
+  try {
+    formattedSource = formatLanguage(format)(source, options)
+  } catch (error) {
+    return {
+      status: 'error',
+    }
+  }
+  if (formattedSource === undefined) {
+    return {
+      status: 'error',
+    }
+  }
+  const minimizedEdit = minimizeEdit(source, formattedSource)
+  const textEdit = toTextEdit(source, minimizedEdit)
+  return {
+    status: 'success',
+    textEdits: [textEdit],
+  }
 }

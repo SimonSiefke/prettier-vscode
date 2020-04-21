@@ -9,23 +9,23 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.4",
+    "@types/jest": "^25.2.1",
     "@types/prettier": "^2.0.0",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.2.1",
-    "typescript": "^3.8.3"
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.8.3",
+    "vscode-jsonrpc": "^5.0.1",
+    "vscode-languageserver": "^6.1.1"
   },
   "dependencies": {
-    "@prettier/plugin-php": "^0.14.0",
-    "@prettier/plugin-pug": "^1.1.10",
-    "@prettier/plugin-ruby": "^0.18.0",
+    "@prettier/plugin-pug": "^1.2.0",
+    "@prettier/plugin-ruby": "^0.18.1",
     "@prettier/plugin-xml": "^0.7.2",
-    "prettier": "^2.0.2",
+    "prettier": "^2.0.5",
     "prettier-plugin-csharp": "^0.6.0-development",
     "prettier-plugin-elm": "^0.7.0",
     "prettier-plugin-java": "^0.7.1",
-    "prettier-plugin-svelte": "^0.7.0",
     "prettier-plugin-twig-melody": "^0.4.2",
-    "svelte": "^3.20.1"
+    "vscode-languageserver-textdocument": "^1.0.1"
   }
 }
