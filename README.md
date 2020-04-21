@@ -26,3 +26,5 @@ JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, Less, HTML, Vue, Angular, Gr
 
 - Svelte (currently not working with Prettier v2)
 - Php (currently not working with Prettier v2)
+
+<!--  -->
