@@ -238,18 +238,18 @@ class HelloWorld {
     })
   })
 
-  test('php', async () => {
-    await createTestFile('index.php')
-    const testCases: TestCase[] = [
-      {
-        input: `<?php echo '<p>Hello World</p>'  ; ?>`,
-        expect: `<?php echo '<p>Hello World</p>'; ?>\n`,
-      },
-    ]
-    await run(testCases, {
-      afterCommands,
-    })
-  })
+  // test('php', async () => {
+  //   await createTestFile('index.php')
+  //   const testCases: TestCase[] = [
+  //     {
+  //       input: `<?php echo '<p>Hello World</p>'  ; ?>`,
+  //       expect: `<?php echo '<p>Hello World</p>'; ?>\n`,
+  //     },
+  //   ]
+  //   await run(testCases, {
+  //     afterCommands,
+  //   })
+  // })
 
   test('postcss', async () => {
     await createTestFile('index2.css')
@@ -323,19 +323,19 @@ contract helloWorld {
     })
   })
 
-  test('svelte', async () => {
-    await createTestFile('index.svelte')
-    const testCases: TestCase[] = [
-      {
-        input: `   <button> click me</button>`,
-        expect: `<button>click me</button>
-`,
-      },
-    ]
-    await run(testCases, {
-      afterCommands,
-    })
-  })
+  //   test('svelte', async () => {
+  //     await createTestFile('index.svelte')
+  //     const testCases: TestCase[] = [
+  //       {
+  //         input: `   <button> click me</button>`,
+  //         expect: `<button>click me</button>
+  // `,
+  //       },
+  //     ]
+  //     await run(testCases, {
+  //       afterCommands,
+  //     })
+  //   })
 
   test('twig', async () => {
     await createTestFile('index.twig')
