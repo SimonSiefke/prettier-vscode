@@ -51,6 +51,10 @@ connection.onDocumentFormatting(
         console.log('file ignored')
         break
       }
+      case 'cancelled': {
+        console.log('cancelled')
+        break
+      }
     }
   })
 )

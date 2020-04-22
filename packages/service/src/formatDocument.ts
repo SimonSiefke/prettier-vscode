@@ -268,6 +268,9 @@ export type FormatDocumentResult =
   | {
       status: 'error'
     }
+  | {
+      status: 'cancelled'
+    }
 
 export const formatDocument: (
   source: string,

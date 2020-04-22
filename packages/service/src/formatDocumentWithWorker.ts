@@ -6,7 +6,16 @@ import type { FormatDocumentResult } from './formatDocument'
 
 const createWorker = () => new Worker(path.join(__dirname, 'worker.js'), {})
 
-let worker: Worker | undefined
+let worker: Worker | undefined = undefined
+
+const createId = (() => {
+  let id = 0
+  return () => id++
+})()
+
+let id = createId()
+
+let workerState: 'uninitialized' | 'idle' | 'working' = 'uninitialized'
 
 export const formatWithWorker: (
   source: string,
@@ -15,35 +24,39 @@ export const formatWithWorker: (
   token: CancellationToken
 ) => Promise<FormatDocumentResult> = (source, filePath, languageId, token) =>
   new Promise((resolve) => {
-    let state:
-      | 'uninitialized'
-      | 'initialized'
-      | 'working'
-      | 'done'
-      | 'cancelled' = 'uninitialized'
-    if (!worker) {
+    id = createId()
+    const currentId = id
+    if (workerState === 'uninitialized') {
+      assert(worker === undefined)
       worker = createWorker()
+      workerState = 'idle'
     }
-    state = 'initialized'
     token.onCancellationRequested(() => {
-      assert(state === 'working' || state === 'done')
-      if (state === 'working') {
+      if (id !== currentId) {
+        return
+      }
+      assert(workerState === 'working' || workerState === 'idle')
+      if (workerState === 'working') {
         worker!.removeAllListeners()
         worker!.terminate()
         worker = undefined
-        state = 'cancelled'
+        workerState = 'uninitialized'
+        resolve({
+          status: 'cancelled',
+        })
       }
     })
-    worker.once('message', (value) => {
-      assert(state === 'working')
-      state = 'done'
+    worker!.once('message', (value) => {
+      assert(workerState === 'working')
+      assert(currentId === id)
+      workerState = 'idle'
       resolve(value)
     })
-    worker.on('exit', () => {
+    worker!.on('exit', () => {
       console.log('worker exited')
     })
-    state = 'working'
-    worker.postMessage({ source, filePath, languageId })
+    workerState = 'working'
+    worker!.postMessage({ source, filePath, languageId })
   })
 
 export const formatWithWorkerClearCache = () => {
