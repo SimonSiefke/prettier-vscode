@@ -30,3 +30,5 @@ Because of breaking changes with Prettier v2, the following languages are curren
 - Php
 
 You can downgrade this extension to version 1.1.22 which still supports those languages.
+
+<!--  -->
