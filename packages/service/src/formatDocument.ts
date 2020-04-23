@@ -1,5 +1,5 @@
 import { format, getFileInfo, Options, resolveConfig } from 'prettier'
-import type { TextEdit } from 'vscode-languageserver'
+import type { TextEdit, CancellationToken } from 'vscode-languageserver'
 import { TextDocument } from 'vscode-languageserver-textdocument'
 import type { Formatter } from './plugins/pluginApi'
 
@@ -275,8 +275,14 @@ export type FormatDocumentResult =
 export const formatDocument: (
   source: string,
   filePath: string,
-  languageId: string
-) => Promise<FormatDocumentResult> = async (source, filePath, languageId) => {
+  languageId: string,
+  token?: CancellationToken
+) => Promise<FormatDocumentResult> = async (
+  source,
+  filePath,
+  languageId,
+  token
+) => {
   filePath = fixPath(filePath, languageId)
   const isIgnoredPromise = getIsIgnored(filePath)
   const formatLanguagePromise = getFormatter(languageId)

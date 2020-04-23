@@ -16,6 +16,7 @@ const createId = (() => {
 let id = createId()
 
 let workerState: 'uninitialized' | 'idle' | 'working' = 'uninitialized'
+let _resolve: ((value: FormatDocumentResult) => void) | undefined
 
 export const formatWithWorker: (
   source: string,
@@ -26,18 +27,24 @@ export const formatWithWorker: (
   new Promise((resolve) => {
     id = createId()
     const currentId = id
+    console.log(`run ${currentId}`)
     if (workerState === 'working') {
       assert(worker !== undefined)
       worker!.removeAllListeners()
       worker!.terminate()
       worker = createWorker()
+      console.log('kill worker')
       workerState = 'idle'
+      if (_resolve) {
+        _resolve({ status: 'cancelled' })
+      }
     }
     if (workerState === 'uninitialized') {
       assert(worker === undefined)
       worker = createWorker()
       workerState = 'idle'
     }
+    _resolve = resolve
     assert(workerState === 'idle')
     assert(worker !== undefined)
     worker!.once('message', (value) => {
@@ -46,6 +53,7 @@ export const formatWithWorker: (
       assert(currentId === id)
       worker!.removeAllListeners()
       workerState = 'idle'
+      console.log(`done ${currentId}`)
       resolve(value)
     })
     workerState = 'working'
