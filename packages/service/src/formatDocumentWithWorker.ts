@@ -26,17 +26,37 @@ export const formatWithWorker: (
   new Promise((resolve) => {
     id = createId()
     const currentId = id
+    if (workerState === 'working') {
+      assert(worker !== undefined)
+      worker!.removeAllListeners()
+      worker!.terminate()
+      worker = createWorker()
+      workerState = 'idle'
+    }
     if (workerState === 'uninitialized') {
       assert(worker === undefined)
       worker = createWorker()
       workerState = 'idle'
     }
+    assert(workerState === 'idle')
+    assert(worker !== undefined)
+    worker!.once('message', (value) => {
+      assert(workerState === 'working')
+      assert(worker !== undefined)
+      assert(currentId === id)
+      worker!.removeAllListeners()
+      workerState = 'idle'
+      resolve(value)
+    })
+    workerState = 'working'
+    worker!.postMessage({ source, filePath, languageId })
     token.onCancellationRequested(() => {
       if (id !== currentId) {
         return
       }
       assert(workerState === 'working' || workerState === 'idle')
       if (workerState === 'working') {
+        assert(worker !== undefined)
         worker!.removeAllListeners()
         worker!.terminate()
         worker = undefined
@@ -46,17 +66,6 @@ export const formatWithWorker: (
         })
       }
     })
-    worker!.once('message', (value) => {
-      assert(workerState === 'working')
-      assert(currentId === id)
-      workerState = 'idle'
-      resolve(value)
-    })
-    worker!.on('exit', () => {
-      console.log('worker exited')
-    })
-    workerState = 'working'
-    worker!.postMessage({ source, filePath, languageId })
   })
 
 export const formatWithWorkerClearCache = () => {
