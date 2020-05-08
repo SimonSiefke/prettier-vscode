@@ -2,6 +2,7 @@
 
 | Version | Date     | Changelog                                                              |
 | ------- | -------- | ---------------------------------------------------------------------- |
+| 2.0.3   | 08.05.20 | Fix: Support for svelte (again)                                        |
 | 2.0.2   | 22.04.20 | Fix: Long running requests because of unresolved promise               |
 | 2.0.0   | 21.04.20 | Breaking Change: Upgrade to Prettier v2.                               |
 | 1.1.21  | 02.03.20 | Fix: Don't exclude node_modules from formatting                        |

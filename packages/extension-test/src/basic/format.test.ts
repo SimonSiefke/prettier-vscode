@@ -323,19 +323,19 @@ contract helloWorld {
     })
   })
 
-  //   test('svelte', async () => {
-  //     await createTestFile('index.svelte')
-  //     const testCases: TestCase[] = [
-  //       {
-  //         input: `   <button> click me</button>`,
-  //         expect: `<button>click me</button>
-  // `,
-  //       },
-  //     ]
-  //     await run(testCases, {
-  //       afterCommands,
-  //     })
-  //   })
+  test('svelte', async () => {
+    await createTestFile('index.svelte')
+    const testCases: TestCase[] = [
+      {
+        input: `   <button> click me</button>`,
+        expect: `<button>click me</button>
+`,
+      },
+    ]
+    await run(testCases, {
+      afterCommands,
+    })
+  })
 
   test('twig', async () => {
     await createTestFile('index.twig')

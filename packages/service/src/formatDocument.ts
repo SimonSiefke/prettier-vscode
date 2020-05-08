@@ -118,10 +118,10 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
   //   const { formatSolidity } = await import('./disabled-plugins/solidity/solidity')
   //   return formatSolidity
   // },
-  // async svelte() {
-  //   const { formatSvelte } = await import('./plugins/svelte/svelte')
-  //   return formatSvelte
-  // },
+  async svelte() {
+    const { formatSvelte } = await import('./plugins/svelte/svelte')
+    return formatSvelte
+  },
   async typescript() {
     const { formatTypescript } = await import('./plugins/typescript/typescript')
     return formatTypescript
