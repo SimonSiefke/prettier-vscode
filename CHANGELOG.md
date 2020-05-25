@@ -2,6 +2,7 @@
 
 | Version | Date     | Changelog                                                              |
 | ------- | -------- | ---------------------------------------------------------------------- |
+| 2.0.5   | 25.05.20 | Fix: Support for php (again)                                           |
 | 2.0.3   | 08.05.20 | Fix: Support for svelte (again)                                        |
 | 2.0.2   | 22.04.20 | Fix: Long running requests because of unresolved promise               |
 | 2.0.0   | 21.04.20 | Breaking Change: Upgrade to Prettier v2.                               |
