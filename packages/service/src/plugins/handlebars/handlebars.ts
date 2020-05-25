@@ -1,5 +1,5 @@
-import { Formatter } from '../pluginApi'
+import type { Formatter } from '../pluginApi'
 
-export const formatHandlebars: Formatter = format => (text, options) =>
+export const formatHandlebars: Formatter = (format) => (text, options) =>
   // @ts-ignore
   format(text, { ...options, parser: 'glimmer' })

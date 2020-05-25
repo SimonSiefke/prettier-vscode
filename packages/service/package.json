@@ -18,6 +18,7 @@
     "vscode-languageserver": "^6.1.1"
   },
   "dependencies": {
+    "@prettier/plugin-php": "^0.14.1",
     "@prettier/plugin-pug": "^1.2.0",
     "@prettier/plugin-ruby": "^0.18.1",
     "@prettier/plugin-xml": "^0.7.2",

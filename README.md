@@ -20,12 +20,4 @@ For best editing experience, the following settings are recommended:
 
 ## Supported languages
 
-JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, Less, HTML, Vue, Angular, GraphQL, Markdown, YAML, C#, Elm, Java, Twig, XML, Svelte
-
-## Important
-
-Because of breaking changes with Prettier v2, the following languages are currently not supported:
-
-- Php
-
-You can downgrade this extension to version 1.1.22 which still supports those languages.
+JavaScript, TypeScript, Flow, JSX, JSON, CSS, SCSS, Less, HTML, Vue, Angular, GraphQL, Markdown, YAML, C#, Elm, Java, Twig, XML, Svelte, Php

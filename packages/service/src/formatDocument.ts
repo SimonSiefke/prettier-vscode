@@ -98,10 +98,10 @@ const FORMATTING_MAP: { [key: string]: () => Promise<Formatter> } = {
     const { formatMdx } = await import('./plugins/mdx/mdx')
     return formatMdx
   },
-  // async php() {
-  //   const { formatPhp } = await import('./plugins/php/php')
-  //   return formatPhp
-  // },
+  async php() {
+    const { formatPhp } = await import('./plugins/php/php')
+    return formatPhp
+  },
   async postcss() {
     const { formatPostcss } = await import('./plugins/postcss/postcss')
     return formatPostcss

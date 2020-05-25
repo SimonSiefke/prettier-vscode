@@ -1,4 +1,4 @@
-import { Formatter } from '../pluginApi'
+import type { Formatter } from '../pluginApi'
 
-export const formatGraphql: Formatter = format => (text, options) =>
+export const formatGraphql: Formatter = (format) => (text, options) =>
   format(text, options)

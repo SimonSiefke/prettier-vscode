@@ -1,5 +1,5 @@
 import * as csharp from 'prettier-plugin-csharp'
-import { Formatter } from '../pluginApi'
+import type { Formatter } from '../pluginApi'
 
-export const formatCsharp: Formatter = format => (text, options) =>
+export const formatCsharp: Formatter = (format) => (text, options) =>
   format(text, { ...options, plugins: [csharp] })

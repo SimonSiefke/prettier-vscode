@@ -1,4 +1,4 @@
-import { Formatter } from '../pluginApi'
+import type { Formatter } from '../pluginApi'
 
-export const formatTypescript: Formatter = format => (text, options) =>
+export const formatTypescript: Formatter = (format) => (text, options) =>
   format(text, options)

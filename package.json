@@ -23,7 +23,7 @@
     "semantic-release": "^17.0.7",
     "semantic-release-vsce": "^3.0.1",
     "ts-loader": "^7.0.1",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.3",
     "webpack": "^5.0.0-beta.13",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.11"
@@ -54,7 +54,7 @@
     },
     {
       "path": "./dist/packages/server/dist/worker.js",
-      "maxSize": "7 kB",
+      "maxSize": "8 kB",
       "compression": "none"
     }
   ],
