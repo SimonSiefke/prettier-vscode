@@ -6,16 +6,16 @@
     "dev": "tsc -b -w"
   },
   "dependencies": {
-    "@babel/code-frame": "^7.8.3",
+    "@babel/code-frame": "^7.10.1",
     "service": "^1.0.0-dev",
-    "source-map-support": "^0.5.18",
+    "source-map-support": "^0.5.19",
     "vscode-languageserver": "^6.1.1",
     "vscode-languageserver-textdocument": "^1.0.1",
-    "vscode-uri": "^2.1.1"
+    "vscode-uri": "^2.1.2"
   },
   "devDependencies": {
     "@types/babel__code-frame": "^7.0.1",
     "@types/source-map-support": "^0.5.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   }
 }
