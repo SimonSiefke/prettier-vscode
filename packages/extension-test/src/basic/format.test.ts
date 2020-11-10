@@ -327,7 +327,7 @@ contract helloWorld {
     await createTestFile('index.svelte')
     const testCases: TestCase[] = [
       {
-        input: `   <button> click me</button>`,
+        input: `   <button>click me</button>`,
         expect: `<button>click me</button>
 `,
       },
